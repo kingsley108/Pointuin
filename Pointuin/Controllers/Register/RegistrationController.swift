@@ -80,7 +80,7 @@ class RegistrationController: UIViewController {
         let btn = UIButton()
         btn.layer.cornerRadius = 25
         btn.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-        btn.isEnabled = true
+        btn.isEnabled = false
         btn.setTitle("Register", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .black)
@@ -99,7 +99,6 @@ class RegistrationController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(true, animated: true)
         setGradientBackground()
         setUpView()
@@ -109,18 +108,21 @@ class RegistrationController: UIViewController {
     
     @objc fileprivate func registerUser() {
         self.view.endEditing(true)
-        hud.show(in: self.view)
-        registrationModel.registerUser { err in
-            if let err = err {
-                self.hud.textLabel.text = "Error Registering"
-                self.hud.detailTextLabel.text = err.localizedDescription
-                self.hud.dismiss(afterDelay: 2, animated: true)
-                return
-            }
-            self.dismiss(animated: true) {
-                self.delegate?.newUserRefetching()
-            }
-        }
+//        hud.show(in: self.view)
+//        registrationModel.registerUser { err in
+//            if let err = err {
+//                self.hud.textLabel.text = "Error Registering"
+//                self.hud.detailTextLabel.text = err.localizedDescription
+//                self.hud.dismiss(afterDelay: 2, animated: true)
+//                return
+//            }
+//            self.dismiss(animated: true) {
+//                self.delegate?.newUserRefetching()
+//            }
+//        }
+        let userModel = UserModel(username: self.usernameTextField.text!, email: self.emailTextField.text!)
+        navigationController?.pushViewController(UserProfileController(userModel: userModel)
+                                                 , animated: true)
         
     }
     
@@ -135,7 +137,7 @@ class RegistrationController: UIViewController {
                 self?.registerButton.isEnabled = true
             } else {
                 self?.registerButton.backgroundColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
-                self?.registerButton.isEnabled = true
+                self?.registerButton.isEnabled = false
             }
         })
         _ = registrationModel.registrationObserver.subscribe(onNext: { [weak self] hasRegistered in

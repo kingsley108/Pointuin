@@ -80,7 +80,7 @@ class LoginController: UIViewController {
     lazy var registerNavigation: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(userRegisterHandler), for: .touchUpInside)
-        btn.setTitle("Back To Register", for: .normal)
+        btn.setTitle("Sign up", for: .normal)
         return btn
     }()
     
@@ -96,7 +96,8 @@ class LoginController: UIViewController {
     }
     
     @objc fileprivate func userRegisterHandler() {
-        navigationController?.popViewController(animated: true)
+        navigationController?.pushViewController(RegistrationController()
+                                                 , animated: true)
     }
     
     @objc fileprivate func signInUser() {
@@ -116,9 +117,10 @@ class LoginController: UIViewController {
 //            }
 //
 //        }
-    
-        self.navigationController?.pushViewController(MainTabBarController(), animated: true)
         
+        guard let rootVc = UIApplication.shared.windows.first!.rootViewController as? MainTabBarController else {return}
+        rootVc.setUpVc()
+        self.dismiss(animated: true, completion: nil)
     }
     
     fileprivate func handleKeyBoardObserver() {

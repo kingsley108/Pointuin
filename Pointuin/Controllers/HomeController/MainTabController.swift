@@ -14,18 +14,18 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         self.delegate = self
-//        if Auth.auth().currentUser == nil {
-//            //show if not logged in
-//            DispatchQueue.main.async {
-//                let loginController = LoginViewController()
-//                let navController = UINavigationController(rootViewController: loginController)
-//                navController.modalPresentationStyle = .fullScreen
-//                self.present(navController, animated: true, completion: nil)
-//            }
-//            return
-//        }
+        if Auth.auth().currentUser == nil {
+            //show if not logged in
+            DispatchQueue.main.async {
+                let loginController = LoginController()
+                let navController = UINavigationController(rootViewController: loginController)
+                navController.modalPresentationStyle = .fullScreen
+                self.present(navController, animated: true, completion: nil)
+            }
+            return
+        }
 
-        setUpVc()
+        self.setUpVc()
         navigationController?.navigationBar.isHidden = true
 
     }
@@ -41,7 +41,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         let dashboardNav = templateController(selectedimage: #imageLiteral(resourceName: "list"), unselectedImage: #imageLiteral(resourceName: "list"), vc: dashboardVc)
         
         //UserProfile Navigator
-        let profileVc = UserProfileController()
+        let profileVc = TeamProfileController()
         let userNav = templateController(selectedimage: #imageLiteral(resourceName: "profile_selected"), unselectedImage: #imageLiteral(resourceName: "profile_unselected"), vc: profileVc)
         
         viewControllers = [homeNav,dashboardNav,userNav]
