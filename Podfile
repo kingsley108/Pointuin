@@ -11,6 +11,8 @@ pod 'SDWebImage', '~> 5.0'
 pod 'JGProgressHUD'
 pod 'RxSwift', '6.1.0'
 pod 'RxCocoa', '6.1.0'
+pod 'Firebase/Firestore'
+pod 'Firebase/Storage'
 
   target 'PointuinTests' do
     inherit! :search_paths
