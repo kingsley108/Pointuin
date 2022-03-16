@@ -10,6 +10,7 @@ pod 'IQKeyboardManagerSwift'
 pod 'SDWebImage', '~> 5.0'
 pod 'JGProgressHUD'
 pod 'RxSwift', '6.1.0'
+pod 'RxCocoa', '6.1.0'
 
   target 'PointuinTests' do
     inherit! :search_paths
