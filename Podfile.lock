@@ -1,6 +1,7 @@
 PODS:
   - IQKeyboardManagerSwift (6.5.9)
   - JGProgressHUD (2.2)
+  - RxSwift (6.1.0)
   - SDWebImage (5.12.3):
     - SDWebImage/Core (= 5.12.3)
   - SDWebImage/Core (5.12.3)
@@ -8,19 +9,22 @@ PODS:
 DEPENDENCIES:
   - IQKeyboardManagerSwift
   - JGProgressHUD
+  - RxSwift (= 6.1.0)
   - SDWebImage (~> 5.0)
 
 SPEC REPOS:
   trunk:
     - IQKeyboardManagerSwift
     - JGProgressHUD
+    - RxSwift
     - SDWebImage
 
 SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 6e839c575c4aa1078d58a596e41244e77abe918f
   JGProgressHUD: d83d7a981b85d11205e19ff8ad5bb9c40571c847
+  RxSwift: a834e5c538e89eca0cae86f403f4fbf0336786ce
   SDWebImage: 53179a2dba77246efa8a9b85f5c5b21f8f43e38f
 
-PODFILE CHECKSUM: 68a68aa48c49dc87102ab6607cd55cb06437151d
+PODFILE CHECKSUM: 7a76bad5f99a96a6be189e6bf7d3dea875219bc0
 
 COCOAPODS: 1.11.2
