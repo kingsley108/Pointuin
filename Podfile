@@ -7,6 +7,8 @@ target 'Pointuin' do
 
   # Pods for Pointuin
 pod 'IQKeyboardManagerSwift'
+pod 'SDWebImage', '~> 5.0'
+pod 'JGProgressHUD'
 
   target 'PointuinTests' do
     inherit! :search_paths
