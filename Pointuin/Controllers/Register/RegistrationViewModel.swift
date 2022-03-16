@@ -6,6 +6,10 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
+import FirebaseFirestore
+import FirebaseAuth
 
 class RegistrationViewModel {
     typealias completion = ((Error)?) -> ()

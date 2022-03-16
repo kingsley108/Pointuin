@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import Firebase
+import FirebaseAuth
 
 class LoginViewModel {
     let isCorrectlyFilled = PublishSubject<Bool>()

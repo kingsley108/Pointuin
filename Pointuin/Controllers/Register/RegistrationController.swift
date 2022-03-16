@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import JGProgressHUD
 import Foundation
 
 
@@ -14,12 +17,12 @@ class RegistrationController: UIViewController {
     let imageContainer = PublishSubject<UIImage>()
     let disposeBag = DisposeBag()
     var delegate: HomeControllerUserRequest?
-//    let hud: JGProgressHUD = {
-//        let hud = JGProgressHUD(style: .dark)
-//        hud.textLabel.text = "Registering"
-//        hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.1)
-//        return hud
-//    }()
+    let hud: JGProgressHUD = {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Registering"
+        hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.1)
+        return hud
+    }()
     
     
     var gradient : CAGradientLayer = {
