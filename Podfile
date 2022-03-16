@@ -13,6 +13,7 @@ pod 'RxSwift', '6.1.0'
 pod 'RxCocoa', '6.1.0'
 pod 'Firebase/Firestore'
 pod 'Firebase/Storage'
+pod 'Firebase/Auth'
 
   target 'PointuinTests' do
     inherit! :search_paths
