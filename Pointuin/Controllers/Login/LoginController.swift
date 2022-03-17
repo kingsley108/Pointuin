@@ -11,12 +11,8 @@ import JGProgressHUD
 import RxSwift
 import RxCocoa
 
-protocol HomeControllerUserRequest {
-    func newUserRefetching()
-}
 class LoginController: UIViewController {
     let loginModel = LoginViewModel()
-    var delegate: HomeControllerUserRequest?
     let loginStackView : UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 10
@@ -102,25 +98,21 @@ class LoginController: UIViewController {
     
     @objc fileprivate func signInUser() {
         self.view.endEditing(true)
-    // MARK: - TO BE COMPLTETED
-//        hud.show(in: self.view)
-//        loginModel.signInUsers { err in
-//            if let err = err {
-//                self.hud.textLabel.text = "Error Logging In"
-//                self.hud.detailTextLabel.text = err.localizedDescription
-//                self.hud.dismiss(afterDelay: 2, animated: true)
-//                return
-//            }
-//
-//            self.dismiss(animated: true) {
-//                self.delegate?.newUserRefetching()
-//            }
-//
-//        }
-        
-        guard let rootVc = UIApplication.shared.windows.first!.rootViewController as? MainTabBarController else {return}
-        rootVc.setUpVc()
-        self.dismiss(animated: true, completion: nil)
+        hud.show(in: self.view)
+        loginModel.signInUsers { err in
+            if let err = err {
+                self.hud.textLabel.text = "Error Logging In"
+                self.hud.detailTextLabel.text = err.localizedDescription
+                self.hud.dismiss(afterDelay: 2, animated: true)
+                return
+            }
+            
+            self.dismiss(animated: true) {
+                guard let rootVc = UIApplication.shared.windows.first!.rootViewController as? MainTabBarController else {return}
+                rootVc.setUpVc()
+            }
+            
+        }
     }
     
     fileprivate func handleKeyBoardObserver() {

@@ -16,7 +16,6 @@ class RegistrationController: UIViewController {
     let registrationModel = RegistrationViewModel()
     let imageContainer = PublishSubject<UIImage>()
     let disposeBag = DisposeBag()
-    var delegate: HomeControllerUserRequest?
     let hud: JGProgressHUD = {
         let hud = JGProgressHUD(style: .dark)
         hud.textLabel.text = "Registering"
@@ -108,22 +107,20 @@ class RegistrationController: UIViewController {
     
     @objc fileprivate func registerUser() {
         self.view.endEditing(true)
-//        hud.show(in: self.view)
-//        registrationModel.registerUser { err in
-//            if let err = err {
-//                self.hud.textLabel.text = "Error Registering"
-//                self.hud.detailTextLabel.text = err.localizedDescription
-//                self.hud.dismiss(afterDelay: 2, animated: true)
-//                return
-//            }
-//            self.dismiss(animated: true) {
-//                self.delegate?.newUserRefetching()
-//            }
-//        }
-        let userModel = UserModel(username: self.usernameTextField.text!, email: self.emailTextField.text!)
-        navigationController?.pushViewController(UserProfileController(userModel: userModel)
-                                                 , animated: true)
-        
+        hud.show(in: self.view)
+        registrationModel.registerUser { err in
+            if let err = err {
+                self.hud.textLabel.text = "Error Registering"
+                self.hud.detailTextLabel.text = err.localizedDescription
+                self.hud.dismiss(afterDelay: 2, animated: true)
+                return
+            }
+            
+            let userModel = UserModel(username: self.usernameTextField.text!, email: self.emailTextField.text!)
+            self.navigationController?.pushViewController(UserProfileController(userModel: userModel)
+                                                         , animated: true)
+            
+        }
     }
     
     @objc fileprivate func userLoginHandler() {

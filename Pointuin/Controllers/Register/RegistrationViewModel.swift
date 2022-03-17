@@ -58,25 +58,10 @@ class RegistrationViewModel {
                 self.hasRegistered.onNext(false)
                 return
             }
-            self.saveUserDocuments(completion: completion)
-        }
-        
-    }
-    
-    //Storing the user documents
-    fileprivate func saveUserDocuments(completion: @escaping completion) {
-        guard let userId = Auth.auth().currentUser?.uid else {return}
-        let db = Firestore.firestore()
-        let document: [String: Any] = ["fullname": username?.text ?? "", "uid": userId]
-        db.collection("users").document(userId).setData(document) { err in
             self.hasRegistered.onNext(true)
-            if let err = err {
-                completion(err)
-                self.hasRegistered.onNext(false)
-                return
-            }
             completion(nil)
         }
+        
     }
 }
 

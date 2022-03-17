@@ -7,6 +7,8 @@
 
 import UIKit
 import Foundation
+import FirebaseFirestore
+import FirebaseAuth
 
 class UserProfileController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -131,11 +133,25 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @objc func handleUpdate() {
-        guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else { return }
+        self.saveUserDocuments()
+    }
+    
+    fileprivate func saveUserDocuments() {
+        guard let userId = Auth.auth().currentUser?.uid else {return}
+        guard let username = usernameTextField.text else {return}
+        guard let email = emailTextField.text else {return}
         
-        mainTabBarController.setUpVc()
-        
-        self.dismiss(animated: true, completion: nil)
+        let db = Firestore.firestore()
+        let document: [String: Any] = ["username": username, "email": email, "number": phoneTextField.text ?? "","title": titleTextField.text ?? "", "uid": userId]
+        db.collection("users").document(userId).setData(document) { err in
+            if err != nil {
+                return
+            }
+            
+            guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else { return }
+            mainTabBarController.setUpVc()
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     

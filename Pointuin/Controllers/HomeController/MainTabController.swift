@@ -13,7 +13,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     var index : Int?
     
     override func viewDidLoad() {
-        self.delegate = self
+        
         if Auth.auth().currentUser == nil {
             //show if not logged in
             DispatchQueue.main.async {
@@ -45,7 +45,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         let userNav = templateController(selectedimage: #imageLiteral(resourceName: "profile_selected"), unselectedImage: #imageLiteral(resourceName: "profile_unselected"), vc: profileVc)
         
         viewControllers = [homeNav,dashboardNav,userNav]
-        tabBar.tintColor = #colorLiteral(red: 0.2539359629, green: 0.3838947415, blue: 0.9965317845, alpha: 1)
+        tabBar.tintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
         tabBar.barTintColor = .white
         
         //Iterate through tabBar items
