@@ -13,6 +13,8 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     var index : Int?
     
     override func viewDidLoad() {
+        self.setUpVc()
+        navigationController?.navigationBar.isHidden = true
         
         if Auth.auth().currentUser == nil {
             //show if not logged in
@@ -24,10 +26,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
             }
             return
         }
-
-        self.setUpVc()
-        navigationController?.navigationBar.isHidden = true
-
     }
     
     func setUpVc ()
