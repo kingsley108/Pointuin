@@ -3,7 +3,6 @@
 //  Pointuin
 //
 //  Created by Kingsley Charles on 20/02/2022.
-//
 
 import UIKit
 import FirebaseAuth
@@ -14,8 +13,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         self.setUpVc()
-        navigationController?.navigationBar.isHidden = true
-        
         if Auth.auth().currentUser == nil {
             //show if not logged in
             DispatchQueue.main.async {
@@ -33,13 +30,14 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         //Home Profile
         let homeVc = HomeController()
         let homeNav = templateController(selectedimage: #imageLiteral(resourceName: "home_selected"), unselectedImage: #imageLiteral(resourceName: "home_unselected"), vc: homeVc)
+        homeVc.navigationController?.navigationBar.isHidden = false
         
         //Search Navigator
         let dashboardVc = DashboardController()
         let dashboardNav = templateController(selectedimage: #imageLiteral(resourceName: "list"), unselectedImage: #imageLiteral(resourceName: "list"), vc: dashboardVc)
         
         //UserProfile Navigator
-        let profileVc = TeamProfileController()
+        let profileVc = UserProfileController(userModel: SprintProgress.currentUser) //TeamProfileController()
         let userNav = templateController(selectedimage: #imageLiteral(resourceName: "profile_selected"), unselectedImage: #imageLiteral(resourceName: "profile_unselected"), vc: profileVc)
         
         viewControllers = [homeNav,dashboardNav,userNav]
@@ -58,7 +56,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     {
         let vc = vc
         let templateNav = UINavigationController(rootViewController: vc!)
-        templateNav.navigationBar.isHidden = true
+        templateNav.navigationBar.isHidden = false
         templateNav.tabBarItem.selectedImage = selectedimage
         templateNav.tabBarItem.image = unselectedImage
         return templateNav

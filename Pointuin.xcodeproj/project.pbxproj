@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F2791DB27E88535000ED46A /* InfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2791DA27E88535000ED46A /* InfoDetailView.swift */; };
 		1F2DC94427E2286600F688E3 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DC94327E2286600F688E3 /* UserModel.swift */; };
 		1F2DC94727E229DD00F688E3 /* TeamProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DC94627E229DD00F688E3 /* TeamProfileController.swift */; };
 		1F43C6D527E337DA00BCA9A3 /* JoinTeamButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43C6D427E337DA00BCA9A3 /* JoinTeamButton.swift */; };
+		1F43C6DB27E3C26C00BCA9A3 /* TeamDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43C6DA27E3C26C00BCA9A3 /* TeamDetailsController.swift */; };
 		1F5232C927E2450C00D23B3C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F5232C827E2450C00D23B3C /* GoogleService-Info.plist */; };
 		1F5232CA27E2450C00D23B3C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F5232C827E2450C00D23B3C /* GoogleService-Info.plist */; };
 		1F5232CB27E2450C00D23B3C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F5232C827E2450C00D23B3C /* GoogleService-Info.plist */; };
+		1F82068227E457F90064E8BB /* TeamDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82068127E457F90064E8BB /* TeamDetailsCell.swift */; };
 		1F82D49A27C26D5300C680A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D49927C26D5300C680A7 /* AppDelegate.swift */; };
 		1F82D49C27C26D5300C680A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D49B27C26D5300C680A7 /* SceneDelegate.swift */; };
 		1F82D4A327C26D5400C680A7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F82D4A227C26D5400C680A7 /* Assets.xcassets */; };
@@ -32,6 +35,9 @@
 		1F82D4F327C2CB1700C680A7 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4F227C2CB1700C680A7 /* HomeController.swift */; };
 		1F82D4F627C2CE1F00C680A7 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4F527C2CE1F00C680A7 /* UserProfileController.swift */; };
 		1F82D4F927C2CEDB00C680A7 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4F827C2CEDB00C680A7 /* DashboardController.swift */; };
+		1FB23BF727E4B7D200A42929 /* EstimateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BF627E4B7D200A42929 /* EstimateController.swift */; };
+		1FB23BF927E4B83800A42929 /* PointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BF827E4B83800A42929 /* PointCell.swift */; };
+		1FB23BFC27E8501F00A42929 /* JoinSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */; };
 		4F7DFAECB153A5772309899E /* Pods_PointuinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AD7EBD170F0488DCCCF474 /* Pods_PointuinTests.framework */; };
 		BD18E016D9C3E1215C662128 /* Pods_Pointuin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD504FC5C287D194D7E136C4 /* Pods_Pointuin.framework */; };
 		FFB9A92003B1AF661AA94BCB /* Pods_Pointuin_PointuinUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E157DE56EB57FB80D9BE88 /* Pods_Pointuin_PointuinUITests.framework */; };
@@ -56,10 +62,13 @@
 
 /* Begin PBXFileReference section */
 		0195821585371051E5DF8A7C /* Pods-PointuinTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PointuinTests.debug.xcconfig"; path = "Target Support Files/Pods-PointuinTests/Pods-PointuinTests.debug.xcconfig"; sourceTree = "<group>"; };
+		1F2791DA27E88535000ED46A /* InfoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDetailView.swift; sourceTree = "<group>"; };
 		1F2DC94327E2286600F688E3 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		1F2DC94627E229DD00F688E3 /* TeamProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileController.swift; sourceTree = "<group>"; };
 		1F43C6D427E337DA00BCA9A3 /* JoinTeamButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinTeamButton.swift; sourceTree = "<group>"; };
+		1F43C6DA27E3C26C00BCA9A3 /* TeamDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsController.swift; sourceTree = "<group>"; };
 		1F5232C827E2450C00D23B3C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1F82068127E457F90064E8BB /* TeamDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsCell.swift; sourceTree = "<group>"; };
 		1F82D49627C26D5300C680A7 /* Pointuin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pointuin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F82D49927C26D5300C680A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1F82D49B27C26D5300C680A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +92,9 @@
 		1F82D4F227C2CB1700C680A7 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		1F82D4F527C2CE1F00C680A7 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
 		1F82D4F827C2CEDB00C680A7 /* DashboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
+		1FB23BF627E4B7D200A42929 /* EstimateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateController.swift; sourceTree = "<group>"; };
+		1FB23BF827E4B83800A42929 /* PointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCell.swift; sourceTree = "<group>"; };
+		1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionController.swift; sourceTree = "<group>"; };
 		2AAA81A66F3E1B666CD193A3 /* Pods-Pointuin-PointuinUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointuin-PointuinUITests.release.xcconfig"; path = "Target Support Files/Pods-Pointuin-PointuinUITests/Pods-Pointuin-PointuinUITests.release.xcconfig"; sourceTree = "<group>"; };
 		73E157DE56EB57FB80D9BE88 /* Pods_Pointuin_PointuinUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pointuin_PointuinUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		824EE77688AB754A8451C481 /* Pods-PointuinTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PointuinTests.release.xcconfig"; path = "Target Support Files/Pods-PointuinTests/Pods-PointuinTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -142,12 +154,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		1F2DC94527E229C900F688E3 /* TeamProfile */ = {
+		1F2DC94527E229C900F688E3 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				1F82D4F527C2CE1F00C680A7 /* UserProfileController.swift */,
 				1F2DC94627E229DD00F688E3 /* TeamProfileController.swift */,
 			);
-			path = TeamProfile;
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		1F43C6D627E368B500BCA9A3 /* Buttons */ = {
@@ -156,6 +169,23 @@
 				1F43C6D427E337DA00BCA9A3 /* JoinTeamButton.swift */,
 			);
 			path = Buttons;
+			sourceTree = "<group>";
+		};
+		1F43C6D927E3C24A00BCA9A3 /* TeamDetailsView */ = {
+			isa = PBXGroup;
+			children = (
+				1F43C6DA27E3C26C00BCA9A3 /* TeamDetailsController.swift */,
+				1F82068127E457F90064E8BB /* TeamDetailsCell.swift */,
+			);
+			path = TeamDetailsView;
+			sourceTree = "<group>";
+		};
+		1F43C6DC27E3C3E900BCA9A3 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				1F82D4F027C2C70E00C680A7 /* MainTabController.swift */,
+			);
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 		1F82D48D27C26D5300C680A7 = {
@@ -216,9 +246,12 @@
 		1F82D4C927C26E0E00C680A7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1F2DC94527E229C900F688E3 /* TeamProfile */,
+				1FB23BFA27E8500000A42929 /* SessionController */,
+				1FB23BF527E4B7BE00A42929 /* EstimatingController */,
+				1F43C6DC27E3C3E900BCA9A3 /* TabBarController */,
+				1F43C6D927E3C24A00BCA9A3 /* TeamDetailsView */,
+				1F2DC94527E229C900F688E3 /* Profile */,
 				1F82D4F727C2CEC700C680A7 /* DashboardController */,
-				1F82D4F427C2CE0D00C680A7 /* UserProfile */,
 				1F82D4EF27C2C5C400C680A7 /* HomeController */,
 				1F82D4CB27C26E2500C680A7 /* Login */,
 				1F82D4CA27C26E1900C680A7 /* Register */,
@@ -249,6 +282,7 @@
 			children = (
 				1F43C6D627E368B500BCA9A3 /* Buttons */,
 				1F82D4E527C27DE000C680A7 /* Exensions.swift */,
+				1F2791DA27E88535000ED46A /* InfoDetailView.swift */,
 				1F82D4E727C27DE000C680A7 /* FIRDatabase Extension.swift */,
 				1F82D4E827C27DE000C680A7 /* FireBaseStorage.swift */,
 				1F82D4E627C27DE000C680A7 /* UserDetailsField.swift */,
@@ -259,18 +293,9 @@
 		1F82D4EF27C2C5C400C680A7 /* HomeController */ = {
 			isa = PBXGroup;
 			children = (
-				1F82D4F027C2C70E00C680A7 /* MainTabController.swift */,
 				1F82D4F227C2CB1700C680A7 /* HomeController.swift */,
 			);
 			path = HomeController;
-			sourceTree = "<group>";
-		};
-		1F82D4F427C2CE0D00C680A7 /* UserProfile */ = {
-			isa = PBXGroup;
-			children = (
-				1F82D4F527C2CE1F00C680A7 /* UserProfileController.swift */,
-			);
-			path = UserProfile;
 			sourceTree = "<group>";
 		};
 		1F82D4F727C2CEC700C680A7 /* DashboardController */ = {
@@ -279,6 +304,23 @@
 				1F82D4F827C2CEDB00C680A7 /* DashboardController.swift */,
 			);
 			path = DashboardController;
+			sourceTree = "<group>";
+		};
+		1FB23BF527E4B7BE00A42929 /* EstimatingController */ = {
+			isa = PBXGroup;
+			children = (
+				1FB23BF627E4B7D200A42929 /* EstimateController.swift */,
+				1FB23BF827E4B83800A42929 /* PointCell.swift */,
+			);
+			path = EstimatingController;
+			sourceTree = "<group>";
+		};
+		1FB23BFA27E8500000A42929 /* SessionController */ = {
+			isa = PBXGroup;
+			children = (
+				1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */,
+			);
+			path = SessionController;
 			sourceTree = "<group>";
 		};
 		E67169734FC6AE66C6EAF6DF /* Frameworks */ = {
@@ -538,16 +580,22 @@
 				1F2DC94727E229DD00F688E3 /* TeamProfileController.swift in Sources */,
 				1F82D4EB27C27DE000C680A7 /* UserDetailsField.swift in Sources */,
 				1F82D4D527C274BA00C680A7 /* RegistrationViewModel.swift in Sources */,
+				1FB23BFC27E8501F00A42929 /* JoinSessionController.swift in Sources */,
 				1F82D4DD27C274F900C680A7 /* RegistrationController.swift in Sources */,
+				1F43C6DB27E3C26C00BCA9A3 /* TeamDetailsController.swift in Sources */,
 				1F82D49C27C26D5300C680A7 /* SceneDelegate.swift in Sources */,
 				1F82D4ED27C27DE000C680A7 /* FireBaseStorage.swift in Sources */,
+				1F82068227E457F90064E8BB /* TeamDetailsCell.swift in Sources */,
+				1FB23BF727E4B7D200A42929 /* EstimateController.swift in Sources */,
 				1F82D4E127C2757F00C680A7 /* LoginViewModel.swift in Sources */,
 				1F82D4F627C2CE1F00C680A7 /* UserProfileController.swift in Sources */,
 				1F82D4F127C2C70E00C680A7 /* MainTabController.swift in Sources */,
 				1F82D4EA27C27DE000C680A7 /* Exensions.swift in Sources */,
 				1F82D4EC27C27DE000C680A7 /* FIRDatabase Extension.swift in Sources */,
+				1F2791DB27E88535000ED46A /* InfoDetailView.swift in Sources */,
 				1F82D4F927C2CEDB00C680A7 /* DashboardController.swift in Sources */,
 				1F2DC94427E2286600F688E3 /* UserModel.swift in Sources */,
+				1FB23BF927E4B83800A42929 /* PointCell.swift in Sources */,
 				1F82D4F327C2CB1700C680A7 /* HomeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -26,7 +26,7 @@ class JoinButton: UIButton {
     }
 }
 
-class JoinTeamView: UIButton {
+class HighlightedButton: UIButton {
     
     fileprivate var buttonParameters: SprintProgress
     
@@ -54,16 +54,16 @@ class JoinTeamView: UIButton {
     override init(frame: CGRect) {
         self.buttonParameters = SprintProgress.indev
         super.init(frame: frame)
-        self.addSubViews()
+        self.addSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         self.buttonParameters = SprintProgress.indev
         super.init(coder: aDecoder)
-        self.addSubViews()
+        self.addSubviews()
     }
     
-    fileprivate func addSubViews() {
+    fileprivate func addSubviews() {
         addSubview(buttonLabel)
         addSubview(progressLabel)
         addSubview(buttonIcon)

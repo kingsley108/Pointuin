@@ -85,7 +85,7 @@ class LoginController: UIViewController {
         view.backgroundColor = .white
         navigationController?.setNavigationBarHidden(true, animated: true)
         setGradientBackground()
-        addSubViews()
+        addSubviews()
         setUpView()
         keyboardDismissGesture()
         handleKeyBoardObserver()
@@ -166,7 +166,7 @@ class LoginController: UIViewController {
         view.layer.addSublayer(gradient)
     }
     
-    fileprivate func addSubViews() {
+    fileprivate func addSubviews() {
         self.loginStackView.addArrangedSubview(emailTextField)
         self.loginStackView.addArrangedSubview(passwordTextField)
         self.loginStackView.addArrangedSubview(loginButton)
