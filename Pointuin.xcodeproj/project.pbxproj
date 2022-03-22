@@ -10,6 +10,9 @@
 		1F2791DB27E88535000ED46A /* InfoDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2791DA27E88535000ED46A /* InfoDetailView.swift */; };
 		1F2DC94427E2286600F688E3 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DC94327E2286600F688E3 /* UserModel.swift */; };
 		1F2DC94727E229DD00F688E3 /* TeamProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DC94627E229DD00F688E3 /* TeamProfileController.swift */; };
+		1F412D0F27E99FB700C7EAA7 /* FireBaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F412D0C27E99FB700C7EAA7 /* FireBaseStorage.swift */; };
+		1F412D1127E99FB700C7EAA7 /* FIRDatabase Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F412D0E27E99FB700C7EAA7 /* FIRDatabase Extension.swift */; };
+		1F412D1327E99FE500C7EAA7 /* Exensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F412D1227E99FE500C7EAA7 /* Exensions.swift */; };
 		1F43C6D527E337DA00BCA9A3 /* JoinTeamButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43C6D427E337DA00BCA9A3 /* JoinTeamButton.swift */; };
 		1F43C6DB27E3C26C00BCA9A3 /* TeamDetailsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F43C6DA27E3C26C00BCA9A3 /* TeamDetailsController.swift */; };
 		1F5232C927E2450C00D23B3C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F5232C827E2450C00D23B3C /* GoogleService-Info.plist */; };
@@ -27,10 +30,6 @@
 		1F82D4DD27C274F900C680A7 /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4DC27C274F900C680A7 /* RegistrationController.swift */; };
 		1F82D4E127C2757F00C680A7 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4DF27C2757F00C680A7 /* LoginViewModel.swift */; };
 		1F82D4E327C27D7000C680A7 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4E227C27D7000C680A7 /* LoginController.swift */; };
-		1F82D4EA27C27DE000C680A7 /* Exensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4E527C27DE000C680A7 /* Exensions.swift */; };
-		1F82D4EB27C27DE000C680A7 /* UserDetailsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4E627C27DE000C680A7 /* UserDetailsField.swift */; };
-		1F82D4EC27C27DE000C680A7 /* FIRDatabase Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4E727C27DE000C680A7 /* FIRDatabase Extension.swift */; };
-		1F82D4ED27C27DE000C680A7 /* FireBaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4E827C27DE000C680A7 /* FireBaseStorage.swift */; };
 		1F82D4F127C2C70E00C680A7 /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4F027C2C70E00C680A7 /* MainTabController.swift */; };
 		1F82D4F327C2CB1700C680A7 /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4F227C2CB1700C680A7 /* HomeController.swift */; };
 		1F82D4F627C2CE1F00C680A7 /* UserProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4F527C2CE1F00C680A7 /* UserProfileController.swift */; };
@@ -38,6 +37,8 @@
 		1FB23BF727E4B7D200A42929 /* EstimateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BF627E4B7D200A42929 /* EstimateController.swift */; };
 		1FB23BF927E4B83800A42929 /* PointCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BF827E4B83800A42929 /* PointCell.swift */; };
 		1FB23BFC27E8501F00A42929 /* JoinSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */; };
+		1FFFC2FC27E902AF008FA073 /* UserDetailsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFC2FB27E902AF008FA073 /* UserDetailsField.swift */; };
+		1FFFC30027E903F1008FA073 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FFFC2FF27E903F1008FA073 /* CustomTextField.swift */; };
 		4F7DFAECB153A5772309899E /* Pods_PointuinTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8AD7EBD170F0488DCCCF474 /* Pods_PointuinTests.framework */; };
 		BD18E016D9C3E1215C662128 /* Pods_Pointuin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD504FC5C287D194D7E136C4 /* Pods_Pointuin.framework */; };
 		FFB9A92003B1AF661AA94BCB /* Pods_Pointuin_PointuinUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73E157DE56EB57FB80D9BE88 /* Pods_Pointuin_PointuinUITests.framework */; };
@@ -65,6 +66,9 @@
 		1F2791DA27E88535000ED46A /* InfoDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDetailView.swift; sourceTree = "<group>"; };
 		1F2DC94327E2286600F688E3 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		1F2DC94627E229DD00F688E3 /* TeamProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileController.swift; sourceTree = "<group>"; };
+		1F412D0C27E99FB700C7EAA7 /* FireBaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseStorage.swift; sourceTree = "<group>"; };
+		1F412D0E27E99FB700C7EAA7 /* FIRDatabase Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FIRDatabase Extension.swift"; sourceTree = "<group>"; };
+		1F412D1227E99FE500C7EAA7 /* Exensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Exensions.swift; path = "Pointuin/Helper Files/Exensions.swift"; sourceTree = SOURCE_ROOT; };
 		1F43C6D427E337DA00BCA9A3 /* JoinTeamButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinTeamButton.swift; sourceTree = "<group>"; };
 		1F43C6DA27E3C26C00BCA9A3 /* TeamDetailsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailsController.swift; sourceTree = "<group>"; };
 		1F5232C827E2450C00D23B3C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -84,10 +88,6 @@
 		1F82D4DC27C274F900C680A7 /* RegistrationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		1F82D4DF27C2757F00C680A7 /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		1F82D4E227C27D7000C680A7 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
-		1F82D4E527C27DE000C680A7 /* Exensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Exensions.swift; path = "../../../../../../../iOS Course Materials/IOS Portfolio/Tinder App/Tinder App/Helper Files/Exensions.swift"; sourceTree = "<group>"; };
-		1F82D4E627C27DE000C680A7 /* UserDetailsField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserDetailsField.swift; path = "../../../../../../../iOS Course Materials/IOS Portfolio/Tinder App/Tinder App/Helper Files/UserDetailsField.swift"; sourceTree = "<group>"; };
-		1F82D4E727C27DE000C680A7 /* FIRDatabase Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FIRDatabase Extension.swift"; path = "../../../../../../../iOS Course Materials/IOS Portfolio/Tinder App/Tinder App/Helper Files/FIRDatabase Extension.swift"; sourceTree = "<group>"; };
-		1F82D4E827C27DE000C680A7 /* FireBaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FireBaseStorage.swift; path = "../../../../../../../iOS Course Materials/IOS Portfolio/Tinder App/Tinder App/Helper Files/FireBaseStorage.swift"; sourceTree = "<group>"; };
 		1F82D4F027C2C70E00C680A7 /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		1F82D4F227C2CB1700C680A7 /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		1F82D4F527C2CE1F00C680A7 /* UserProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileController.swift; sourceTree = "<group>"; };
@@ -95,6 +95,8 @@
 		1FB23BF627E4B7D200A42929 /* EstimateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateController.swift; sourceTree = "<group>"; };
 		1FB23BF827E4B83800A42929 /* PointCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCell.swift; sourceTree = "<group>"; };
 		1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionController.swift; sourceTree = "<group>"; };
+		1FFFC2FB27E902AF008FA073 /* UserDetailsField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsField.swift; sourceTree = "<group>"; };
+		1FFFC2FF27E903F1008FA073 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		2AAA81A66F3E1B666CD193A3 /* Pods-Pointuin-PointuinUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pointuin-PointuinUITests.release.xcconfig"; path = "Target Support Files/Pods-Pointuin-PointuinUITests/Pods-Pointuin-PointuinUITests.release.xcconfig"; sourceTree = "<group>"; };
 		73E157DE56EB57FB80D9BE88 /* Pods_Pointuin_PointuinUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pointuin_PointuinUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		824EE77688AB754A8451C481 /* Pods-PointuinTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PointuinTests.release.xcconfig"; path = "Target Support Files/Pods-PointuinTests/Pods-PointuinTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -280,12 +282,11 @@
 		1F82D4E427C27DD000C680A7 /* Helper Files */ = {
 			isa = PBXGroup;
 			children = (
+				1FFFC2FA27E902A0008FA073 /* CustomUIKit */,
 				1F43C6D627E368B500BCA9A3 /* Buttons */,
-				1F82D4E527C27DE000C680A7 /* Exensions.swift */,
-				1F2791DA27E88535000ED46A /* InfoDetailView.swift */,
-				1F82D4E727C27DE000C680A7 /* FIRDatabase Extension.swift */,
-				1F82D4E827C27DE000C680A7 /* FireBaseStorage.swift */,
-				1F82D4E627C27DE000C680A7 /* UserDetailsField.swift */,
+				1F412D0E27E99FB700C7EAA7 /* FIRDatabase Extension.swift */,
+				1F412D1227E99FE500C7EAA7 /* Exensions.swift */,
+				1F412D0C27E99FB700C7EAA7 /* FireBaseStorage.swift */,
 			);
 			path = "Helper Files";
 			sourceTree = "<group>";
@@ -321,6 +322,16 @@
 				1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */,
 			);
 			path = SessionController;
+			sourceTree = "<group>";
+		};
+		1FFFC2FA27E902A0008FA073 /* CustomUIKit */ = {
+			isa = PBXGroup;
+			children = (
+				1FFFC2FB27E902AF008FA073 /* UserDetailsField.swift */,
+				1F2791DA27E88535000ED46A /* InfoDetailView.swift */,
+				1FFFC2FF27E903F1008FA073 /* CustomTextField.swift */,
+			);
+			path = CustomUIKit;
 			sourceTree = "<group>";
 		};
 		E67169734FC6AE66C6EAF6DF /* Frameworks */ = {
@@ -575,27 +586,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				1F43C6D527E337DA00BCA9A3 /* JoinTeamButton.swift in Sources */,
+				1F412D0F27E99FB700C7EAA7 /* FireBaseStorage.swift in Sources */,
 				1F82D49A27C26D5300C680A7 /* AppDelegate.swift in Sources */,
 				1F82D4E327C27D7000C680A7 /* LoginController.swift in Sources */,
 				1F2DC94727E229DD00F688E3 /* TeamProfileController.swift in Sources */,
-				1F82D4EB27C27DE000C680A7 /* UserDetailsField.swift in Sources */,
 				1F82D4D527C274BA00C680A7 /* RegistrationViewModel.swift in Sources */,
 				1FB23BFC27E8501F00A42929 /* JoinSessionController.swift in Sources */,
 				1F82D4DD27C274F900C680A7 /* RegistrationController.swift in Sources */,
 				1F43C6DB27E3C26C00BCA9A3 /* TeamDetailsController.swift in Sources */,
 				1F82D49C27C26D5300C680A7 /* SceneDelegate.swift in Sources */,
-				1F82D4ED27C27DE000C680A7 /* FireBaseStorage.swift in Sources */,
+				1FFFC2FC27E902AF008FA073 /* UserDetailsField.swift in Sources */,
 				1F82068227E457F90064E8BB /* TeamDetailsCell.swift in Sources */,
 				1FB23BF727E4B7D200A42929 /* EstimateController.swift in Sources */,
 				1F82D4E127C2757F00C680A7 /* LoginViewModel.swift in Sources */,
 				1F82D4F627C2CE1F00C680A7 /* UserProfileController.swift in Sources */,
 				1F82D4F127C2C70E00C680A7 /* MainTabController.swift in Sources */,
-				1F82D4EA27C27DE000C680A7 /* Exensions.swift in Sources */,
-				1F82D4EC27C27DE000C680A7 /* FIRDatabase Extension.swift in Sources */,
+				1F412D1127E99FB700C7EAA7 /* FIRDatabase Extension.swift in Sources */,
 				1F2791DB27E88535000ED46A /* InfoDetailView.swift in Sources */,
 				1F82D4F927C2CEDB00C680A7 /* DashboardController.swift in Sources */,
+				1FFFC30027E903F1008FA073 /* CustomTextField.swift in Sources */,
 				1F2DC94427E2286600F688E3 /* UserModel.swift in Sources */,
 				1FB23BF927E4B83800A42929 /* PointCell.swift in Sources */,
+				1F412D1327E99FE500C7EAA7 /* Exensions.swift in Sources */,
 				1F82D4F327C2CB1700C680A7 /* HomeController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
