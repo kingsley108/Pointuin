@@ -20,9 +20,9 @@ class JoinButton: UIButton {
     }
     
     fileprivate func setupView() {
-        backgroundColor = UIColor.systemGreen
-        isHidden = false
-        setTitle("Join Here", for: .normal)
+        self.backgroundColor = UIColor.systemGreen
+        self.isHidden = false
+        self.setTitle("Join Here", for: .normal)
     }
 }
 
@@ -64,9 +64,9 @@ class HighlightedButton: UIButton {
     }
     
     fileprivate func addSubviews() {
-        addSubview(buttonLabel)
-        addSubview(progressLabel)
-        addSubview(buttonIcon)
+        addSubview(self.buttonLabel)
+        addSubview(self.progressLabel)
+        addSubview(self.buttonIcon)
         
         backgroundColor = UIColor.alternativeHomeColour
         self.setupView()
@@ -75,10 +75,10 @@ class HighlightedButton: UIButton {
     
     fileprivate func setupView() {
         
-        buttonLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil,padding: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 0))
-        buttonIcon.anchor(top: centerYAnchor, leading: buttonLabel.leadingAnchor, trailing: nil, bottom: nil,padding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
-        progressLabel.anchor(top: nil, leading: buttonIcon.trailingAnchor, trailing: nil, bottom: nil,padding: UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0))
-        progressLabel.centerYAnchor.constraint(equalTo: buttonIcon.centerYAnchor).isActive = true
+        self.buttonLabel.anchor(top: topAnchor, leading: leadingAnchor, trailing: nil, bottom: nil,padding: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 0))
+        self.buttonIcon.anchor(top: centerYAnchor, leading: buttonLabel.leadingAnchor, trailing: nil, bottom: nil,padding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
+        self.progressLabel.anchor(top: nil, leading: buttonIcon.trailingAnchor, trailing: nil, bottom: nil,padding: UIEdgeInsets(top: 0, left: 6, bottom: 0, right: 0))
+        self.progressLabel.centerYAnchor.constraint(equalTo: buttonIcon.centerYAnchor).isActive = true
         
     }
     

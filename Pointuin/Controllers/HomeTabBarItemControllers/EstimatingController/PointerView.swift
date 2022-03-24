@@ -1,24 +1,28 @@
-
-//  PointCell.swift
-//  InstagramFirebase
+//
+//  PointerView.swift
+//  Pointuin
+//
+//  Created by Kingsley Charles on 22/03/2022.
+//
 
 import UIKit
 
-class PointCell: UICollectionViewCell {
+class PointerView: UIView {
     
     lazy var photoImageView: UIView = {
         let iv = UIView()
         iv.contentMode = .scaleAspectFill
         iv.backgroundColor = .alternativeHomeColour
-        iv.layer.cornerRadius = 12
+        iv.layer.cornerRadius = 8
         iv.clipsToBounds = true
         return iv
     }()
     
     lazy var cardValueLabel: UILabel = {
         let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        lbl.textColor = .homeColour
+        lbl.font = UIFont.systemFont(ofSize: 30, weight: .bold)
+        lbl.textAlignment = .center
+        lbl.textColor = .white
         return lbl
     }()
     
@@ -27,9 +31,13 @@ class PointCell: UICollectionViewCell {
         self.addSubviews()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     fileprivate func addSubviews() {
         self.addSubview(photoImageView)
-        self.addSubview(cardValueLabel)
+        self.photoImageView.addSubview(self.cardValueLabel)
         self.setupConstraints()
     }
     
@@ -40,13 +48,8 @@ class PointCell: UICollectionViewCell {
         self.cardValueLabel.centerYAnchor.constraint(equalTo: self.photoImageView.centerYAnchor).isActive = true
     }
     
-    func setCardValue(cardValue: Int) {
-        cardValueLabel.text = "\(cardValue)"
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func configureWithPoint(pointValue: String?) {
+        cardValueLabel.text = pointValue
     }
     
 }
-

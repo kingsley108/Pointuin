@@ -1,0 +1,106 @@
+
+import Foundation
+import UIKit
+import Firebase
+
+class EstimateController: UIViewController {
+    
+    let cellReuseIdentifier = "estimateDetailsCell"
+    var isFinishedPaging = false
+    var cardSet: [String] = ["0","1","2","3","5","8", "13" , "21" , "34" , "55", "89", "?"]
+    
+    private var width: CGFloat = 0
+    private var height: CGFloat = 0
+    
+    lazy var pageTitle: UILabel = {
+        let label = UILabel()
+        label.text = "💤 Waiting on the next story"
+        label.textColor = .black
+        return label
+    }()
+    
+    lazy var estimateCollectionView: UICollectionView = {
+        let collectonView = UICollectionView(frame: .zero,
+                                             collectionViewLayout: UICollectionViewFlowLayout())
+        collectonView.delegate = self
+        collectonView.dataSource = self
+        return collectonView
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.hidesBackButton = true
+        view.backgroundColor = .white
+        self.title = "Planning 5"
+        navigationController?.navigationBar.tintColor = .white
+        self.setupView()
+    }
+    
+    fileprivate func setupView() {
+        
+        self.view.addSubview(self.pageTitle)
+        self.view.addSubview(self.estimateCollectionView)
+        self.estimateCollectionView.register(EstimatingCell.self, forCellWithReuseIdentifier: cellReuseIdentifier)
+
+        self.setupConstraints()
+    }
+    
+    fileprivate func setupConstraints() {
+        self.pageTitle.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, trailing: self.view.trailingAnchor, bottom: nil,padding: UIEdgeInsets(top: 30, left: 20, bottom: 0, right: 20))
+        
+        let width = self.view.frame.width - 40
+        let height = ((UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.height)! - 30 - self.pageTitle.intrinsicContentSize.height - 3) * 0.75
+        self.height = height
+        self.width = width
+        
+        self.estimateCollectionView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil,size: CGSize(width: width, height: self.height))
+        self.estimateCollectionView.centerYAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        self.estimateCollectionView.centerXAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+    }
+}
+
+extension EstimateController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return cardSet.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellReuseIdentifier, for: indexPath) as! EstimatingCell
+        cell.setCardValue(cardValue: cardSet[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 40
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 40
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let width = (self.width - 80) / 3
+        let height = (self.height - 120) / 4
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! EstimatingCell
+        guard let title = self.title else {return}
+        let controller = ConfirmEstimationController(cell: cell, title: title)
+        navigationController?.pushViewController(controller, animated: true)
+         
+    }
+}
+
+
+
+
+
+
+
+

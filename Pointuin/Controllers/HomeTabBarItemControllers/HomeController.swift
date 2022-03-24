@@ -44,7 +44,7 @@ class HomeController: UIViewController {
         btn.backgroundColor = UIColor.homeColour
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .light)
-        btn.addTarget(self, action: #selector(joinSprint), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(self.joinSprint), for: .touchUpInside)
         return btn
     }()
     
@@ -72,18 +72,7 @@ class HomeController: UIViewController {
         self.navigationItem.title = "My Teams"
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.homeColour, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .regular)]
         navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
-        let appearance = UINavigationBarAppearance()
-         appearance.backgroundColor = .homeColour
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
     }
-    
-  
     
     fileprivate func setUpViewCase() {
 
@@ -109,7 +98,7 @@ class HomeController: UIViewController {
     }
     
     @objc private func joinSession() {
-        let estimateController = EstimateController(collectionViewLayout: UICollectionViewFlowLayout())
+        let estimateController = EstimateController()
         navigationController?.pushViewController(estimateController, animated: true)
     }
     

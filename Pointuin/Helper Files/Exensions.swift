@@ -8,6 +8,12 @@
 import Foundation
 import UIKit
 
+class SafeAreaFrame {
+    
+    static let width = (UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.width)! 
+    static let height = ((UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.height))! 
+    
+}
 
 enum SprintProgress{
     case dev(img:UIImage)
@@ -63,6 +69,11 @@ extension UIView {
     func anchorSizeTo(view: UIView) {
         widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+    }
+    
+    func centerTo(view: UIView) {
+        self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
     
     

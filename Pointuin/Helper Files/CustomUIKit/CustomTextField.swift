@@ -1,9 +1,6 @@
 //
 //  CustomTextField.swift
 //  Pointuin
-//
-//  Created by Kingsley Charles on 21/03/2022.
-//
 
 import UIKit
 

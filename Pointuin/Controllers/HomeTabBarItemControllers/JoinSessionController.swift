@@ -110,7 +110,7 @@ class JoinSessionController: UIViewController {
     
     @objc fileprivate func joinSession() {
         
-        let controller = UIViewController()
+        let controller = EstimateController()
         navigationController?.pushViewController(controller, animated: true)
         
     }
