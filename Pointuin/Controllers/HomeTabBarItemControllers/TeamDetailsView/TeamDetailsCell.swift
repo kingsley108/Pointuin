@@ -85,10 +85,9 @@ class TeamDetailsCell: UITableViewCell {
         self.memberInitials.text = nil
     }
     
-    func setCellAttributes(model: UserModel) {
+    func setCellAttributes(model: UserProfile) {
         self.memberUsername.text = model.username
-        self.memberInitials.text = model.initials
-        print(model.initials)
+        self.memberInitials.text = "KC"
     }
 
 }

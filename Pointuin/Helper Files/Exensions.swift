@@ -15,18 +15,6 @@ class SafeAreaFrame {
     
 }
 
-enum SprintProgress{
-    case dev(img:UIImage)
-    case planning(img:UIImage)
-    case noTeam
-    
-    static let currentUser = UserModel(username: "Kingsley Charles", email: "Kingsley108@yahoo.co.uk")
-
-    static let indev = SprintProgress.dev(img: UIImage(systemName: "keyboard")!.withTintColor(UIColor.homeColour))
-    
-    static let inplan = SprintProgress.planning(img: UIImage(systemName: "lightbulb.fill")!.withTintColor(UIColor.homeColour))
-}
-
 enum Errors: Error {
     case couldNotMatch
 }

@@ -45,22 +45,15 @@ class ConfirmEstimationController: UIViewController {
         return view
     }()
     
-    lazy var confirmYesView: UIButton = {
-        let button = UIButton()
-        button.setTitle("Yes", for: .normal)
-        button.titleLabel?.textAlignment = .center
-        button.layer.cornerRadius = 4
-        button.addTarget(self, action: #selector(self.confirmEstimation), for: .touchUpInside)
+    lazy var confirmYesView: CustomButton = {
+        let button = CustomButton(frame: .zero, buttonText: "Yes")
         button.backgroundColor = .systemGreen
+        button.addTarget(self, action: #selector(self.confirmEstimation), for: .touchUpInside)
         return button
     }()
     
-    lazy var confirmNoView: UIButton = {
-        let button = UIButton()
-        button.setTitle("No", for: .normal)
-        button.backgroundColor = .green
-        button.layer.cornerRadius = 4
-        button.titleLabel?.textAlignment = .center
+    lazy var confirmNoView: CustomButton = {
+        let button = CustomButton(frame: .zero, buttonText: "No")
         button.backgroundColor = .systemRed
         return button
     }()

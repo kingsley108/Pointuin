@@ -4,7 +4,7 @@ import Foundation
 
 class TeamDetailsController: UIViewController {
     let cellReuseIdentifier = "teamDetailsCell"
-    var model = [UserModel]()
+    var model = [UserProfile]()
     
     lazy var teamTableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -33,7 +33,7 @@ class TeamDetailsController: UIViewController {
     
     fileprivate func fillUpModel() {
         
-        let model = [UserModel(username: "Kingsley Charles", email: "kingsley108@yahoo.co.uk")]
+        let model = [UserProfile(username: "Kingsley Charles", email: "kingsley108@yahoo.co.uk")]
         self.model.append(contentsOf: model)
     }
 }

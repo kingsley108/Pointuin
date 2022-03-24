@@ -1,50 +1,47 @@
 
 import UIKit
 import Firebase
+import JGProgressHUD
 
 class HomeController: UIViewController {
     
-    private let inSessionState = SprintProgress.noTeam
+    private var inSessionState = SprintProgress.noTeam
+    private var memberType = MemberType.dev
     
     let infoDetailView: InfoDetailView = {
         let view = InfoDetailView()
+        view.isHidden = false
         return view
     }()
     
-    let teamDetailButton: HighlightedButton = {
-        let btn = HighlightedButton()
+    let teamDetailButton: HighlightedSessionButton = {
+        let btn = HighlightedSessionButton()
         btn.addTarget(self, action: #selector(teamDetailsView), for: .touchUpInside)
-        return btn
-    }()
-    
-    let detailStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        return stackView
-    }()
-    
-    
-    let joinActiveSessionBtn: JoinButton = {
-        let btn = JoinButton()
-        btn.setTitle("Join", for: .normal)
-        btn.layer.cornerRadius = 4
-        btn.backgroundColor = UIColor.orange
-        btn.setTitleColor(.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .light)
-        btn.addTarget(self, action: #selector(joinSession), for: .touchUpInside)
         btn.isHidden = false
         return btn
     }()
     
-    lazy var joinSprintBtn: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Join A Sprint Team", for: .normal)
-        btn.layer.cornerRadius = 4
-        btn.backgroundColor = UIColor.homeColour
-        btn.setTitleColor(.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .light)
+    let homeDetailStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.isHidden = false
+        return stackView
+    }()
+    
+    
+    let joinActiveSessionBtn: CustomButton = {
+        let btn = CustomButton(frame: .zero, buttonText: "Join")
+        btn.backgroundColor = UIColor.orange
+        btn.isHidden = false
+        btn.addTarget(self, action: #selector(joinSession), for: .touchUpInside)
+        return btn
+    }()
+    
+    lazy var joinSprintBtn: CustomButton = {
+        let btn = CustomButton(frame: .zero, buttonText: "Join A Sprint Team")
         btn.addTarget(self, action: #selector(self.joinSprint), for: .touchUpInside)
+        btn.isHidden = false
         return btn
     }()
     
@@ -56,20 +53,59 @@ class HomeController: UIViewController {
         
     }()
     
+    let hud: JGProgressHUD = {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Loading"
+        hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.1)
+        return hud
+    }()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        hud.show(in: self.view)
+        self.fetchCurrentUser()
         self.setUpLayout()
         self.setupLogOutButton()
         self.setUpViewCase()
     }
     
+    fileprivate var user: User? {
+        didSet {
+            self.navigationItem.title = user?.team
+            self.memberType = MemberType(rawValue: user!.acessLevel) ?? .none
+            self.inSessionState = SprintProgress(rawValue: self.user!.team)
+            
+            if self.memberType == .admin {
+                joinSprintBtn.setTitle("Create A Sprint Team", for: .normal)
+            }
+            print(self.memberType)
+            print(self.inSessionState)
+            self.teamDetailButton.teamName = user?.team
+            self.setUpViewCase()
+        }
+    }
+    
+    fileprivate func fetchCurrentUser() {
+
+        guard let uId = Auth.auth().currentUser?.uid else {return}
+        Firestore.firestore().fetchCurrentUser(uid: uId) { (user, err) in
+            
+            if let err = err {
+                print("Failed to fetch user:", err)
+                return
+            }
+            
+            self.user = user
+            self.hud.dismiss(afterDelay: 0.5, animated: true)
+        }
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "My Teams"
         let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.homeColour, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .regular)]
         navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
     }
@@ -82,19 +118,25 @@ class HomeController: UIViewController {
             self.joinSprintBtn.isHidden = false
             self.homeImage.isHidden = false
         case .dev:
-            self.joinSprintBtn.isHidden = true
-            self.homeImage.isHidden = true
+            self.teamDetailButton.isHidden = false
+            self.homeDetailStackView.isHidden = false
             self.joinActiveSessionBtn.isHidden = true
         case .planning:
+            self.teamDetailButton.isHidden = false
             self.joinActiveSessionBtn.isHidden = false
-            self.homeImage.isHidden = true
-            self.joinSprintBtn.isHidden = true
+            self.homeDetailStackView.isHidden = true
         }
     }
     
     @objc private func joinSprint() {
-        let controller = JoinSessionController()
-        navigationController?.pushViewController(controller, animated: true)
+        if self.memberType == .admin {
+            let controller = CreateSessionController()
+            navigationController?.pushViewController(controller, animated: true)
+        } else {
+            let controller = JoinSessionController()
+            navigationController?.pushViewController(controller, animated: true)
+        }
+        
     }
     
     @objc private func joinSession() {
@@ -109,7 +151,7 @@ class HomeController: UIViewController {
     
     
     fileprivate func setupLogOutButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal).withTintColor(UIColor.homeColour), style: .plain, target: self, action: #selector(handleLogOut))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "gear").withRenderingMode(.alwaysOriginal).withTintColor(UIColor.white), style: .plain, target: self, action: #selector(handleLogOut))
     }
     
     fileprivate func setUpLayout() {
@@ -117,7 +159,7 @@ class HomeController: UIViewController {
         self.view.addSubview(self.teamDetailButton)
         self.teamDetailButton.addSubview(self.joinActiveSessionBtn)
         
-        self.teamDetailButton.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, size: CGSize(width: 0, height: 90), padding: .init(top: 20, left: 0, bottom: 0, right: 0))
+        self.teamDetailButton.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: nil, size: CGSize(width: 0, height: 90), padding: .init(top: 10, left: 0, bottom: 0, right: 0))
         self.joinActiveSessionBtn.anchor(top: nil, leading: nil, trailing: joinActiveSessionBtn.superview?.trailingAnchor, bottom: nil, size: CGSize(width: 80, height: 40), padding: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10))
         self.joinActiveSessionBtn.centerYAnchor.constraint(equalTo: joinActiveSessionBtn.superview!.centerYAnchor).isActive = true
         self.setupStackView()
@@ -126,18 +168,18 @@ class HomeController: UIViewController {
     
     fileprivate func setupStackView() {
 
-        self.view.addSubview(self.detailStackView)
-        self.detailStackView.addArrangedSubview(self.homeImage)
-        self.detailStackView.addArrangedSubview(self.infoDetailView)
-        detailStackView.setCustomSpacing(20, after: self.infoDetailView)
-        self.detailStackView.addArrangedSubview(self.joinSprintBtn)
+        self.view.addSubview(self.homeDetailStackView)
+        self.homeDetailStackView.addArrangedSubview(self.homeImage)
+        self.homeDetailStackView.addArrangedSubview(self.infoDetailView)
+        homeDetailStackView.setCustomSpacing(20, after: self.infoDetailView)
+        self.homeDetailStackView.addArrangedSubview(self.joinSprintBtn)
         let height = UIScreen.main.bounds.height / 2
         let width = UIScreen.main.bounds.width / 1.5
         let imageWidth = UIScreen.main.bounds.width / 1.5
         
-        self.detailStackView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: width, height: height))
-        self.detailStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.detailStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        self.homeDetailStackView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: width, height: height))
+        self.homeDetailStackView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.homeDetailStackView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         self.homeImage.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: imageWidth, height: imageWidth))
         self.infoDetailView.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: width, height: width/2.5))
         self.joinSprintBtn.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: width - 80, height: 0))

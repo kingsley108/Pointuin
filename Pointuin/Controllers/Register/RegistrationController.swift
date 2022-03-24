@@ -108,6 +108,7 @@ class RegistrationController: UIViewController {
     @objc fileprivate func registerUser() {
         self.view.endEditing(true)
         hud.show(in: self.view)
+        
         registrationModel.registerUser { err in
             if let err = err {
                 self.hud.textLabel.text = "Error Registering"
@@ -116,7 +117,7 @@ class RegistrationController: UIViewController {
                 return
             }
             
-            let userModel = UserModel(username: self.usernameTextField.text!, email: self.emailTextField.text!)
+            let userModel = UserProfile(username: self.usernameTextField.text!, email: self.emailTextField.text!)
             self.navigationController?.pushViewController(UserProfileController(userModel: userModel)
                                                          , animated: true)
             

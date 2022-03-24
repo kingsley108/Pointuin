@@ -7,11 +7,12 @@
 
 import UIKit
 
-class JoinButton: UIButton {
+class CustomButton: UIButton {
     
-    override init(frame: CGRect) {
+     init(frame: CGRect, buttonText: String) {
         super.init(frame: frame)
         self.setupView()
+        self.setTitle(buttonText, for: .normal)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -21,18 +22,29 @@ class JoinButton: UIButton {
     
     fileprivate func setupView() {
         self.backgroundColor = UIColor.systemGreen
+        self.layer.cornerRadius = 4
         self.isHidden = false
         self.setTitle("Join Here", for: .normal)
+        self.backgroundColor = UIColor.homeColour
+        self.setTitleColor(.white, for: .normal)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .light)
+        self.titleLabel?.textAlignment = .center
     }
 }
 
-class HighlightedButton: UIButton {
+class HighlightedSessionButton: UIButton {
+    
+    var teamName: String? {
+        
+        didSet {
+            self.buttonLabel.text = self.teamName
+        }
+    }
     
     fileprivate var buttonParameters: SprintProgress
     
     private var buttonLabel: UILabel = {
         let lbl = UILabel()
-        lbl.text = "Pheonix"
         lbl.textColor = UIColor.homeColour
         lbl.font = UIFont.systemFont(ofSize: 22)
         return lbl

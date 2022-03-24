@@ -81,13 +81,8 @@ class JoinSessionController: UIViewController {
         return vview
     }()
     
-    lazy var joinSessionBtn: UIButton = {
-        let btn = UIButton()
-        btn.setTitle("Join A Session", for: .normal)
-        btn.layer.cornerRadius = 4
-        btn.backgroundColor = UIColor.homeColour
-        btn.setTitleColor(.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .light)
+    lazy var joinSessionBtn: CustomButton = {
+        let btn = CustomButton(frame: .zero, buttonText: "Join A Session")
         btn.addTarget(self, action: #selector(joinSession), for: .touchUpInside)
         return btn
     }()
