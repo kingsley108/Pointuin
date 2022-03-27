@@ -178,13 +178,8 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
                     self.dismiss(animated: true, completion: nil)
                     
                 }
-                
-                
             })
-            
-            
-            
-            
+
         })
     }
     

@@ -5,8 +5,9 @@ import JGProgressHUD
 
 class HomeController: UIViewController {
     
-    private var inSessionState = SprintProgress.noTeam
+    private var inSessionState = SessionOptions.noTeamSession
     private var memberType = MemberType.dev
+    private var hasEstimated = false
     
     let infoDetailView: InfoDetailView = {
         let view = InfoDetailView()
@@ -65,25 +66,49 @@ class HomeController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        hud.show(in: self.view)
+        self.hud.show(in: self.view)
         self.fetchCurrentUser()
         self.setUpLayout()
         self.setupLogOutButton()
         self.setUpViewCase()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setNavigatonItemAttributes()
+        
+    }
+    
+    fileprivate func setNavigatonItemAttributes() {
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.homeColour, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .regular)]
+        navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
+    }
+    
+    
     fileprivate var user: User? {
         didSet {
-            self.navigationItem.title = user?.team
-            self.memberType = MemberType(rawValue: user!.acessLevel) ?? .none
-            self.inSessionState = SprintProgress(rawValue: self.user!.team)
+            
+            guard let user = user else {return}
+            let enrolled =  user.team == "My Team"
+            print(enrolled)
+            self.navigationItem.title =  enrolled ? user.team : "\(user.team) Sprint Plan"
+            
+            self.memberType = MemberType(rawValue: user.acessLevel) ?? .none
+            self.inSessionState = SessionOptions(state: SessionState(sessionSate: user.sessionStatus))
+            self.teamDetailButton.buttonOptions = self.inSessionState
+            self.hasEstimated = user.voted.bool
+            
             
             if self.memberType == .admin {
                 joinSprintBtn.setTitle("Create A Sprint Team", for: .normal)
             }
+            
             print(self.memberType)
             print(self.inSessionState)
-            self.teamDetailButton.teamName = user?.team
+            self.teamDetailButton.teamName = user.team
             self.setUpViewCase()
         }
     }
@@ -91,7 +116,8 @@ class HomeController: UIViewController {
     fileprivate func fetchCurrentUser() {
 
         guard let uId = Auth.auth().currentUser?.uid else {return}
-        Firestore.firestore().fetchCurrentUser(uid: uId) { (user, err) in
+        
+        Firestore.firestore().getUserUpdates(uid: uId) { (user, err) in
             
             if let err = err {
                 print("Failed to fetch user:", err)
@@ -103,32 +129,26 @@ class HomeController: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.prefersLargeTitles = true
-        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.homeColour, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30, weight: .regular)]
-        navigationController?.navigationBar.largeTitleTextAttributes = textAttributes
-    }
-    
     fileprivate func setUpViewCase() {
 
+        self.homeDetailStackView.isHidden = true
+        
         switch inSessionState {
-        case .noTeam:
+        case .noTeamSession:
             self.teamDetailButton.isHidden = true
             self.joinSprintBtn.isHidden = false
-            self.homeImage.isHidden = false
+            self.homeDetailStackView.isHidden = false
         case .dev:
             self.teamDetailButton.isHidden = false
-            self.homeDetailStackView.isHidden = false
             self.joinActiveSessionBtn.isHidden = true
-        case .planning:
+        case .planningStart:
             self.teamDetailButton.isHidden = false
             self.joinActiveSessionBtn.isHidden = false
-            self.homeDetailStackView.isHidden = true
         }
     }
     
     @objc private func joinSprint() {
+        
         if self.memberType == .admin {
             let controller = CreateSessionController()
             navigationController?.pushViewController(controller, animated: true)
@@ -140,8 +160,20 @@ class HomeController: UIViewController {
     }
     
     @objc private func joinSession() {
-        let estimateController = EstimateController()
-        navigationController?.pushViewController(estimateController, animated: true)
+        
+        let userSelectedVote = self.user?.pointSelected != nil
+        if self.hasEstimated && userSelectedVote {
+            guard let userSelectedVote = self.user?.pointSelected else {return}
+            guard let user = self.user else {return}
+            let controller = StoryStatsViewController(userPoint: userSelectedVote, profileUrl: user.profileImageUrl)
+            self.navigationController?.pushViewController(controller, animated: true)
+            return
+        } else {
+            let estimateController = EstimateController()
+            navigationController?.pushViewController(estimateController, animated: true)
+        }
+        
+       
     }
     
     @objc private func teamDetailsView() {

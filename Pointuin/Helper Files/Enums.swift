@@ -17,28 +17,38 @@ enum MemberType: String {
   case none
 }
 
-enum SprintProgress{
+enum SessionOptions {
     case dev(img:UIImage)
-    case planning(img:UIImage)
-    case noTeam
+    case planningStart(img:UIImage)
+    case noTeamSession
 
-    static let indev = SprintProgress.dev(img: UIImage(systemName: "keyboard")!.withTintColor(UIColor.homeColour))
+    static let indev = SessionOptions.dev(img: UIImage(systemName: "keyboard")!.withTintColor(UIColor.homeColour))
     
-    static let inplan = SprintProgress.planning(img: UIImage(systemName: "lightbulb.fill")!.withTintColor(UIColor.homeColour))
+    static let inplan = SessionOptions.planningStart(img: UIImage(systemName: "lightbulb.fill")!.withTintColor(UIColor.homeColour))
     
-    init(rawValue: String) {
+    init(state: SessionState) {
         
-        if rawValue == "My Team" {
-            self = SprintProgress.noTeam
-        }
-        else if rawValue == "?"   {
-            self = SprintProgress.indev
-        }
-        else {
-            self = SprintProgress.inplan
+        switch state {
+        case .noSession:
+            self = SessionOptions.noTeamSession
+        case .active:
+           self = SessionOptions.inplan
+        case .inactive:
+            self = SessionOptions.indev
         }
     }
     
-    static let currentUser = UserProfile(username: "Kingsley Charles", email: "Kingsley108@yahoo.co.uk")
+    static let currentUser = UserProfile(username: "Temp", email: "Temp")
 }
 
+
+enum SessionState: String {
+    case active = "active"
+    case inactive = "inactive"
+    case noSession = "noSession"
+    
+    
+    init(sessionSate: String) {
+        self = SessionState(rawValue: sessionSate) ?? .noSession
+    }
+}

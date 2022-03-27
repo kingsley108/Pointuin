@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
 
 class ConfirmEstimationController: UIViewController {
     
-    fileprivate var estimatorCell: EstimatingCell
+    fileprivate var point: String
     fileprivate var planningTitle: String
     fileprivate let width = SafeAreaFrame.width * 0.75
     fileprivate let height = SafeAreaFrame.height * 0.35
@@ -41,7 +43,8 @@ class ConfirmEstimationController: UIViewController {
     }()
     
     lazy var viewCard: PointerView = {
-        let view = estimatorCell.pointCard
+        let view = PointerView()
+        view.userPoint = self.point
         return view
     }()
     
@@ -55,11 +58,12 @@ class ConfirmEstimationController: UIViewController {
     lazy var confirmNoView: CustomButton = {
         let button = CustomButton(frame: .zero, buttonText: "No")
         button.backgroundColor = .systemRed
+        button.addTarget(self, action: #selector(self.rejectEstimation), for: .touchUpInside)
         return button
     }()
     
-    init(cell: EstimatingCell, title: String) {
-        self.estimatorCell = cell
+    init(point: String, title: String) {
+        self.point = point
         self.planningTitle = title
         super.init(nibName: nil, bundle: nil)
     }
@@ -74,14 +78,37 @@ class ConfirmEstimationController: UIViewController {
         self.view.addSubview(self.contentStackView)
         self.view.addSubview(self.confirmationStackView)
         self.view.backgroundColor = .white
-        self.navigationItem.hidesBackButton = true
+        self.navigationItem.hidesBackButton = false
         self.setUpViews()
     }
     
     @objc fileprivate func confirmEstimation() {
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        let firestore = Firestore.firestore()
+        let data = ["voted": "true", "pointSelected": self.point]
         
-       let controller = StoryStatsViewController()
-      navigationController?.pushViewController(controller, animated: true)
+        firestore.updateUserData(uid: uid, dictionary: data) { err in
+            
+            if let err = err {
+                print(err)
+                return
+            }
+            
+            firestore.getUserProfile { [unowned self] err,profileImageUrl in
+                
+                if let err = err {
+                    print(err)
+                    return
+                }
+                
+                guard let profileImageUrl = profileImageUrl else {return}
+                
+                let controller = StoryStatsViewController(userPoint: self.point, profileUrl: profileImageUrl)
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
+            
+            
+        }
     }
     
     
@@ -104,6 +131,10 @@ class ConfirmEstimationController: UIViewController {
         self.confirmationStackView.addArrangedSubview(self.confirmYesView)
         self.confirmationStackView.spacing = buttonSpacing
         self.confirmationStackView.addArrangedSubview(self.confirmNoView)
+    }
+    
+    @objc fileprivate func rejectEstimation() {
+        self.navigationController?.popViewController(animated: true)
     }
     
     

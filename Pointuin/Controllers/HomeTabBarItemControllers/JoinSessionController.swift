@@ -1,8 +1,17 @@
 
 import UIKit
 import Foundation
+import JGProgressHUD
+import FirebaseFirestore
 
 class JoinSessionController: UIViewController {
+    
+    let hud: JGProgressHUD = {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Joining Session"
+        hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.1)
+        return hud
+    }()
     
     lazy var sessionStackView: UIStackView = {
         let stackView = UIStackView()
@@ -21,7 +30,7 @@ class JoinSessionController: UIViewController {
     }()
     
     lazy var nameField: CustomTextField = {
-        let field = CustomTextField(placeholder: "Enter Your Name")
+        let field = CustomTextField(placeholder: "Enter A Display Name")
         return field
     }()
     
@@ -40,7 +49,7 @@ class JoinSessionController: UIViewController {
     }()
     
     lazy var passcodeField: CustomTextField = {
-        let field = CustomTextField(placeholder: "Enter Your Pass Code")
+        let field = CustomTextField(placeholder: "Enter The Pass Code")
         return field
     }()
     
@@ -105,9 +114,28 @@ class JoinSessionController: UIViewController {
     
     @objc fileprivate func joinSession() {
         
-        let controller = EstimateController()
-        navigationController?.pushViewController(controller, animated: true)
+        guard let displayname = nameField.text else {return}
+        guard let sessionID = sessionField.text else {return}
+        guard let passCode = passcodeField.text else {return}
         
+        Firestore.firestore().checkSessionExists(displayName: displayname, sessionID: sessionID, passCode: passCode, completion: { [weak self] err in
+            
+            if let err = err {
+                self?.showHUDWithError(error: err)
+                return
+            }
+            
+            let controller = EstimateController()
+            self?.navigationController?.pushViewController(controller, animated: true)
+        })
+    }
+    
+    fileprivate func showHUDWithError(error: Error) {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Session Not Joined, Try Again"
+        hud.detailTextLabel.text = error.localizedDescription
+        hud.show(in: self.view)
+        hud.dismiss(afterDelay: 4)
     }
     
     func setupStackview() {

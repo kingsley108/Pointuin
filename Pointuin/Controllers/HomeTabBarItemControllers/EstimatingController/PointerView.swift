@@ -9,6 +9,15 @@ import UIKit
 
 class PointerView: UIView {
     
+    var userPoint: String? {
+        set {
+            self.cardValueLabel.text = newValue
+        }
+        get {
+            return self.cardValueLabel.text
+        }
+    }
+    
     lazy var photoImageView: UIView = {
         let iv = UIView()
         iv.contentMode = .scaleAspectFill

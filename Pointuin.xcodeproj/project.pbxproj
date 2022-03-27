@@ -11,7 +11,7 @@
 		1F2DC94427E2286600F688E3 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DC94327E2286600F688E3 /* UserProfile.swift */; };
 		1F2DC94727E229DD00F688E3 /* TeamProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2DC94627E229DD00F688E3 /* TeamProfileController.swift */; };
 		1F412D0F27E99FB700C7EAA7 /* FireBaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F412D0C27E99FB700C7EAA7 /* FireBaseStorage.swift */; };
-		1F412D1127E99FB700C7EAA7 /* FIRDatabase Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F412D0E27E99FB700C7EAA7 /* FIRDatabase Extension.swift */; };
+		1F412D1127E99FB700C7EAA7 /* Firestore Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F412D0E27E99FB700C7EAA7 /* Firestore Extension.swift */; };
 		1F412D1327E99FE500C7EAA7 /* Exensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F412D1227E99FE500C7EAA7 /* Exensions.swift */; };
 		1F412D1627EA24DC00C7EAA7 /* PointerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F412D1527EA24DC00C7EAA7 /* PointerView.swift */; };
 		1F412D1927EA2A8500C7EAA7 /* ConfirmEstimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F412D1827EA2A8500C7EAA7 /* ConfirmEstimationController.swift */; };
@@ -76,7 +76,7 @@
 		1F2DC94327E2286600F688E3 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		1F2DC94627E229DD00F688E3 /* TeamProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamProfileController.swift; sourceTree = "<group>"; };
 		1F412D0C27E99FB700C7EAA7 /* FireBaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBaseStorage.swift; sourceTree = "<group>"; };
-		1F412D0E27E99FB700C7EAA7 /* FIRDatabase Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FIRDatabase Extension.swift"; sourceTree = "<group>"; };
+		1F412D0E27E99FB700C7EAA7 /* Firestore Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Firestore Extension.swift"; sourceTree = "<group>"; };
 		1F412D1227E99FE500C7EAA7 /* Exensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Exensions.swift; path = "Pointuin/Helper Files/Exensions.swift"; sourceTree = SOURCE_ROOT; };
 		1F412D1527EA24DC00C7EAA7 /* PointerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerView.swift; sourceTree = "<group>"; };
 		1F412D1827EA2A8500C7EAA7 /* ConfirmEstimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEstimationController.swift; sourceTree = "<group>"; };
@@ -333,7 +333,7 @@
 			children = (
 				1FFFC2FA27E902A0008FA073 /* CustomUIKit */,
 				1F43C6D627E368B500BCA9A3 /* Buttons */,
-				1F412D0E27E99FB700C7EAA7 /* FIRDatabase Extension.swift */,
+				1F412D0E27E99FB700C7EAA7 /* Firestore Extension.swift */,
 				1F412D1227E99FE500C7EAA7 /* Exensions.swift */,
 				1F412D0C27E99FB700C7EAA7 /* FireBaseStorage.swift */,
 				1F98AE0927ED1A9500773723 /* Enums.swift */,
@@ -643,7 +643,7 @@
 				1F412D2A27EC455800C7EAA7 /* CreateSessionController.swift in Sources */,
 				1F82D4F627C2CE1F00C680A7 /* UserProfileController.swift in Sources */,
 				1F82D4F127C2C70E00C680A7 /* MainTabController.swift in Sources */,
-				1F412D1127E99FB700C7EAA7 /* FIRDatabase Extension.swift in Sources */,
+				1F412D1127E99FB700C7EAA7 /* Firestore Extension.swift in Sources */,
 				1F2791DB27E88535000ED46A /* InfoDetailView.swift in Sources */,
 				1F82D4F927C2CEDB00C680A7 /* DashboardController.swift in Sources */,
 				1FFFC30027E903F1008FA073 /* CustomTextField.swift in Sources */,

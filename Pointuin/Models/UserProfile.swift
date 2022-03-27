@@ -21,7 +21,11 @@ struct User {
     var number: String
     let team: String
     let acessLevel: String
-    let profileImageUrl: String?
+    let profileImageUrl: String
+    let sessionID: String
+    let sessionStatus: String
+    let voted: String
+    let pointSelected: String?
     
     init(uid: String, dictionary: [String: Any])
     {
@@ -34,5 +38,9 @@ struct User {
         self.title = dictionary["title"] as? String ?? ""
         self.acessLevel = dictionary["acess"] as? String ?? ""
         self.number = dictionary["number"] as? String ?? ""
+        self.sessionID = dictionary["sessionID"] as? String ?? ""
+        self.sessionStatus = dictionary["sessionStatus"] as? String ?? "noSession"
+        self.voted = dictionary["voted"] as? String ?? "false"
+        self.pointSelected = dictionary["pointSelected"] as? String
     }
 }

@@ -63,8 +63,19 @@ extension UIView {
         self.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         self.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
-    
-    
-    
-    
+
+}
+
+
+extension String {
+    var bool: Bool {
+        switch self.lowercased() {
+        case "true", "t", "yes", "y":
+            return true
+        case "false", "f", "no", "n", "":
+            return false
+        default:
+           return false
+        }
+    }
 }

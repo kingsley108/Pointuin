@@ -11,6 +11,19 @@ class StoryStatsViewController: UIViewController {
     
     fileprivate var progressValue: Float = 0.8
     fileprivate let circularProgress = CircularProgress(frame: CGRect(x: 10.0, y: 30.0, width: 200.0, height: 200.0))
+    fileprivate let userPoint: String
+    fileprivate let profileUrl: String
+    
+    
+    init(userPoint: String, profileUrl: String) {
+        self.userPoint = userPoint
+        self.profileUrl = profileUrl
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     lazy var progressLabel: UILabel = {
         let lbl = UILabel()
@@ -24,8 +37,9 @@ class StoryStatsViewController: UIViewController {
         
     }()
     
-    fileprivate var estimationView: EstimationView = {
-        let view = EstimationView()
+    fileprivate lazy var estimationView: EstimationView = {
+        let view = EstimationView(frame: .zero, profileUrl: self.profileUrl)
+        view.cUserPoint = self.userPoint
         return view
     }()
     
@@ -46,6 +60,7 @@ class StoryStatsViewController: UIViewController {
     {
         super.viewDidLoad()
         view.backgroundColor = .white
+        navigationItem.hidesBackButton = true
         self.circularProgress.progressColor = UIColor.homeColour
         self.circularProgress.trackColor = UIColor.alternativeHomeColour
         self.circularProgress.tag = 101
@@ -53,6 +68,10 @@ class StoryStatsViewController: UIViewController {
         
         //animate progress
         self.perform(#selector(animateProgress), with: nil, afterDelay: 0.1)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.prefersLargeTitles = false
     }
     
     fileprivate func constraintToView() {

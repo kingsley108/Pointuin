@@ -41,7 +41,12 @@ class HighlightedSessionButton: UIButton {
         }
     }
     
-    fileprivate var buttonParameters: SprintProgress
+    var buttonOptions: SessionOptions = SessionOptions.indev {
+        didSet {
+            self.setupParameters()
+        }
+    }
+    
     
     private var buttonLabel: UILabel = {
         let lbl = UILabel()
@@ -64,13 +69,11 @@ class HighlightedSessionButton: UIButton {
     }()
     
     override init(frame: CGRect) {
-        self.buttonParameters = SprintProgress.indev
         super.init(frame: frame)
         self.addSubviews()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.buttonParameters = SprintProgress.indev
         super.init(coder: aDecoder)
         self.addSubviews()
     }
@@ -96,12 +99,12 @@ class HighlightedSessionButton: UIButton {
     
     fileprivate func setupParameters() {
         
-        switch buttonParameters {
+        switch buttonOptions {
         case .dev(let img):
             buttonIcon.image = img
-        case .planning(let img):
+        case .planningStart(let img):
             buttonIcon.image = img
-        case .noTeam:
+        case .noTeamSession:
             return
         }
         

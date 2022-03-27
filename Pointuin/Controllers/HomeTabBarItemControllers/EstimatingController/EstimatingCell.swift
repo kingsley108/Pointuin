@@ -6,13 +6,16 @@ import UIKit
 
 class EstimatingCell: UICollectionViewCell {
     
-    var pointCard: PointerView {
+    
+    
+    var point: String? {
         get {
-            return self.pointerCellView
+            guard let estimatePoint = pointerView.userPoint else {return nil}
+            return estimatePoint
         }
     }
     
-    private lazy var pointerCellView: PointerView = {
+    private lazy var pointerView: PointerView = {
         let pointerView = PointerView()
         return pointerView
     }()
@@ -23,20 +26,20 @@ class EstimatingCell: UICollectionViewCell {
     }
     
     fileprivate func addSubviews() {
-        self.addSubview(self.pointerCellView)
+        self.addSubview(self.pointerView)
         self.setupConstraints()
     }
     
     fileprivate func setupConstraints() {
-        self.pointerCellView.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
+        self.pointerView.anchor(top: topAnchor, leading: leadingAnchor, trailing: trailingAnchor, bottom: bottomAnchor)
     }
     
     func setCardValue(cardValue: String) {
-        self.pointerCellView.configureWithPoint(pointValue: cardValue)
+        self.pointerView.configureWithPoint(pointValue: cardValue)
     }
     
     override func prepareForReuse() {
-        self.pointerCellView.configureWithPoint(pointValue: nil)
+        self.pointerView.configureWithPoint(pointValue: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {

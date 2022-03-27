@@ -37,7 +37,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         let dashboardNav = templateController(selectedimage: #imageLiteral(resourceName: "list"), unselectedImage: #imageLiteral(resourceName: "list"), vc: dashboardVc)
         
         //UserProfile Navigator
-        let profileVc = UserProfileController(userModel: SprintProgress.currentUser) //TeamProfileController()
+        let profileVc = UserProfileController(userModel: SessionOptions.currentUser) //TeamProfileController()
         let userNav = templateController(selectedimage: #imageLiteral(resourceName: "profile_selected"), unselectedImage: #imageLiteral(resourceName: "profile_unselected"), vc: profileVc)
         
         viewControllers = [homeNav,dashboardNav,userNav]
