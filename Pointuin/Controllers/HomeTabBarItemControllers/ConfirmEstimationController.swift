@@ -94,7 +94,7 @@ class ConfirmEstimationController: UIViewController {
                 return
             }
             
-            firestore.getUserProfile { [unowned self] err,profileImageUrl in
+            firestore.getUserProfileDetails { [unowned self] err,profileImageUrl in
                 
                 if let err = err {
                     print(err)

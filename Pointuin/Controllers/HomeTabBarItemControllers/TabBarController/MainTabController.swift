@@ -33,7 +33,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         homeVc.navigationController?.navigationBar.isHidden = false
         
         //Search Navigator
-        let dashboardVc = DashboardController()
+        let dashboardVc = LeaderBoardController()
         let dashboardNav = templateController(selectedimage: #imageLiteral(resourceName: "list"), unselectedImage: #imageLiteral(resourceName: "list"), vc: dashboardVc)
         
         //UserProfile Navigator

@@ -19,10 +19,14 @@ class TeamDetailsController: UIViewController {
         teamTableView.backgroundColor = .white
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor = .white
+        self.teamTableView.separatorColor = .clear
         self.title = "Team Members"
-        navigationController?.navigationBar.tintColor = UIColor.homeColour
         self.setupTableView()
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationItem.hidesBackButton = false
+        navigationController?.navigationBar.tintColor = UIColor.white
     }
     
     fileprivate func setupTableView() {
@@ -33,7 +37,12 @@ class TeamDetailsController: UIViewController {
     
     fileprivate func fillUpModel() {
         
-        let model = [UserProfile(username: "Kingsley Charles", email: "kingsley108@yahoo.co.uk")]
+        let model = [UserProfile(username: "Kingsley Charles", email: "kingsley108@yahoo.co.uk"),
+                     UserProfile(username: "Charlie Smith", email: "Csmith@yahoo.co.uk"),
+                     UserProfile(username: "James Jones", email: "Jjones@yahoo.co.uk"),
+                     UserProfile(username: "Richard Mill", email: "Rmill@yahoo.co.uk"),
+                     UserProfile(username: "Fred Ani", email: "Fani@yahoo.co.uk"),
+        ]
         self.model.append(contentsOf: model)
     }
 }
@@ -52,13 +61,22 @@ extension TeamDetailsController: UITableViewDelegate, UITableViewDataSource {
         let model = model[indexPath.row]
         let cell = self.teamTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! TeamDetailsCell
         cell.setCellAttributes(model: model)
-        cell.backgroundColor = .alternativeHomeColour
+        cell.backgroundColor = .white
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 100
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 10.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
     
     
 }

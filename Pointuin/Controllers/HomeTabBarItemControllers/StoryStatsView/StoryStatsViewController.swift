@@ -92,9 +92,9 @@ class StoryStatsViewController: UIViewController {
         self.circularProgress.anchor(top: self.pageTitle.bottomAnchor, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: 200, height: 200), padding: UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0))
         
         
-        let labelHeight = self.progressLabel.intrinsicContentSize.height
-        let labelWidth = self.progressLabel.intrinsicContentSize.width
-        self.progressLabel.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: labelWidth, height: labelHeight))
+        let labelSize = self.progressLabel.getIntrinsicHeight()
+        
+        self.progressLabel.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, size: labelSize)
         self.progressLabel.centerXAnchor.constraint(equalTo: self.circularProgress.centerXAnchor).isActive = true
         self.progressLabel.centerYAnchor.constraint(equalTo: self.circularProgress.centerYAnchor).isActive = true
         

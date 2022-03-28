@@ -2,12 +2,12 @@
 import Foundation
 import UIKit
 import JGProgressHUD
+import FirebaseFirestore
 
 class CreateSessionController: UIViewController {
     
     let hud: JGProgressHUD = {
         let hud = JGProgressHUD(style: .dark)
-        hud.textLabel.text = "Registering"
         hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.1)
         return hud
     }()
@@ -21,13 +21,18 @@ class CreateSessionController: UIViewController {
         return lbl
     }()
     
-    lazy var customField: CustomTextField = {
+    lazy var teamField: CustomTextField = {
         let field = CustomTextField(placeholder: "Enter Team Name")
         return field
     }()
     
+    lazy var passcodeField: CustomTextField = {
+        let field = CustomTextField(placeholder: "Enter Passcode For Room")
+        return field
+    }()
+    
     lazy var saveSessionBtn: CustomButton = {
-        let btn = CustomButton(frame: .zero, buttonText: "Save")
+        let btn = CustomButton(frame: .zero, buttonText: "Create")
         btn.titleLabel?.textAlignment = .left
         btn.addTarget(self, action: #selector(saveSession), for: .touchUpInside)
         return btn
@@ -66,13 +71,14 @@ class CreateSessionController: UIViewController {
         self.contentStackView.addArrangedSubview(self.pageTitle)
         self.contentStackView.addArrangedSubview(self.btnLabel)
         self.contentStackView.setCustomSpacing(15, after: self.pageTitle)
-        self.contentStackView.addArrangedSubview(self.customField)
+        self.contentStackView.addArrangedSubview(self.teamField)
+        self.contentStackView.addArrangedSubview(self.passcodeField)
         self.contentStackView.addArrangedSubview(self.saveSessionBtn)
         self.anchor()
     }
     
     fileprivate func anchor() {
-        let height = SafeAreaFrame.height / 4
+        let height = SafeAreaFrame.height / 3.5 //4
         let padding = (SafeAreaFrame.width) * 0.75
         
         self.contentStackView.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, trailing: self.view.trailingAnchor, bottom: nil, size: CGSize(width: 0, height:height), padding: UIEdgeInsets(top: 8, left: 20, bottom: 0, right: 20))
@@ -81,9 +87,22 @@ class CreateSessionController: UIViewController {
     }
     
     @objc fileprivate func saveSession() {
-        self.hud.textLabel.text = "MAKING SESSIAdminControlsViewController.swiftON"
-        self.hud.dismiss(afterDelay: 2, animated: true)
-        return
+        let sessionID = self.generateUuidString()
+        let data: [String: Any] = ["team": self.teamField.text ,"passcode": self.passcodeField.text, "sessionStatus": "inactive" ]
+        Firestore.db.saveDocument(collection: "sessions", document: sessionID, data: data)
+        
+        self.hud.show(in: self.view)
+        self.hud.detailTextLabel.text = "Your session number is \(sessionID) please give this to your team."
+        self.hud.textLabel.text = "CREATING SESSION"
+        
+        self.hud.dismiss(afterDelay: 4, animated: true)
+    }
+    
+    func generateUuidString() -> String {
+        let text = UUID().uuidString
+        let index = text.index(text.startIndex, offsetBy: 8)
+        let small = text[text.startIndex..<index]
+        return String(small)
     }
     
     

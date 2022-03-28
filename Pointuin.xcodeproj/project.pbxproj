@@ -43,6 +43,8 @@
 		1F82D4F927C2CEDB00C680A7 /* DashboardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F82D4F827C2CEDB00C680A7 /* DashboardController.swift */; };
 		1F98AE0827ECDDE700773723 /* AdminControlsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98AE0727ECDDE700773723 /* AdminControlsViewController.swift */; };
 		1F98AE0A27ED1A9500773723 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98AE0927ED1A9500773723 /* Enums.swift */; };
+		1F98AE0C27F1CC1800773723 /* LeaderBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98AE0B27F1CC1800773723 /* LeaderBoardController.swift */; };
+		1F98AE0F27F1D76E00773723 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98AE0E27F1D76E00773723 /* LeaderboardCell.swift */; };
 		1FB23BF727E4B7D200A42929 /* EstimateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BF627E4B7D200A42929 /* EstimateController.swift */; };
 		1FB23BF927E4B83800A42929 /* EstimatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BF827E4B83800A42929 /* EstimatingCell.swift */; };
 		1FB23BFC27E8501F00A42929 /* JoinSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */; };
@@ -110,6 +112,8 @@
 		1F82D4F827C2CEDB00C680A7 /* DashboardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardController.swift; sourceTree = "<group>"; };
 		1F98AE0727ECDDE700773723 /* AdminControlsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminControlsViewController.swift; sourceTree = "<group>"; };
 		1F98AE0927ED1A9500773723 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		1F98AE0B27F1CC1800773723 /* LeaderBoardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardController.swift; sourceTree = "<group>"; };
+		1F98AE0E27F1D76E00773723 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
 		1FB23BF627E4B7D200A42929 /* EstimateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateController.swift; sourceTree = "<group>"; };
 		1FB23BF827E4B83800A42929 /* EstimatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimatingCell.swift; sourceTree = "<group>"; };
 		1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionController.swift; sourceTree = "<group>"; };
@@ -301,6 +305,8 @@
 		1F82D4C927C26E0E00C680A7 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				1F98AE1027F1FBE700773723 /* MakeStoryController */,
+				1F98AE0D27F1D73D00773723 /* LeaderBoardController */,
 				1F412D1427E9FEC500C7EAA7 /* HomeTabBarItemControllers */,
 				1F2DC94527E229C900F688E3 /* Profile */,
 				1F82D4F727C2CEC700C680A7 /* DashboardController */,
@@ -347,6 +353,22 @@
 				1F82D4F827C2CEDB00C680A7 /* DashboardController.swift */,
 			);
 			path = DashboardController;
+			sourceTree = "<group>";
+		};
+		1F98AE0D27F1D73D00773723 /* LeaderBoardController */ = {
+			isa = PBXGroup;
+			children = (
+				1F98AE0B27F1CC1800773723 /* LeaderBoardController.swift */,
+				1F98AE0E27F1D76E00773723 /* LeaderboardCell.swift */,
+			);
+			path = LeaderBoardController;
+			sourceTree = "<group>";
+		};
+		1F98AE1027F1FBE700773723 /* MakeStoryController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MakeStoryController;
 			sourceTree = "<group>";
 		};
 		1FB23BF527E4B7BE00A42929 /* EstimatingController */ = {
@@ -630,6 +652,7 @@
 				1F82D4D527C274BA00C680A7 /* RegistrationViewModel.swift in Sources */,
 				1F98AE0827ECDDE700773723 /* AdminControlsViewController.swift in Sources */,
 				1FB23BFC27E8501F00A42929 /* JoinSessionController.swift in Sources */,
+				1F98AE0C27F1CC1800773723 /* LeaderBoardController.swift in Sources */,
 				1F98AE0A27ED1A9500773723 /* Enums.swift in Sources */,
 				1F82D4DD27C274F900C680A7 /* RegistrationController.swift in Sources */,
 				1F43C6DB27E3C26C00BCA9A3 /* TeamDetailsController.swift in Sources */,
@@ -644,6 +667,7 @@
 				1F82D4F627C2CE1F00C680A7 /* UserProfileController.swift in Sources */,
 				1F82D4F127C2C70E00C680A7 /* MainTabController.swift in Sources */,
 				1F412D1127E99FB700C7EAA7 /* Firestore Extension.swift in Sources */,
+				1F98AE0F27F1D76E00773723 /* LeaderboardCell.swift in Sources */,
 				1F2791DB27E88535000ED46A /* InfoDetailView.swift in Sources */,
 				1F82D4F927C2CEDB00C680A7 /* DashboardController.swift in Sources */,
 				1FFFC30027E903F1008FA073 /* CustomTextField.swift in Sources */,

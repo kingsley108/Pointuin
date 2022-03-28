@@ -12,6 +12,8 @@ import RxSwift
 
 extension Firestore {
     
+    static let db = Firestore.firestore()
+    
     func getUserUpdates(uid: String,completion: @escaping (User?, Error?) -> ()) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let db = Firestore.firestore()
@@ -124,7 +126,6 @@ extension Firestore {
                 guard let story = document["storySummary"] as? String else {return}
                 
                 completion(story, nil)
-                
             }
             
         }
@@ -145,15 +146,13 @@ extension Firestore {
             
             completion(nil)
         }
-        
     }
     
-    func getUserProfile(completion: @escaping (Error?, String?) -> ()) {
+    func getUserProfileDetails(completion: @escaping (Error?, String?) -> ()) {
         
-        let db = Firestore.firestore()
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        db.collection("user").document(uid).getDocument { (snapshot, err) in
+        Firestore.db.collection("user").document(uid).getDocument { (snapshot, err) in
             if let err = err {
                 print("Failed to fetch card user:", err)
                 completion(err,nil)
@@ -164,8 +163,17 @@ extension Firestore {
             let imageUrl = document["profileImageUrl"] as? String ?? ""
             completion(nil, imageUrl)
         }
+    }
+    
+    func saveDocument(collection: String,document: String, data: [String: Any]) {
         
-        
+        Firestore.db.collection(collection).document(document).setData(data) { err in
+            if err != nil {
+                return
+            }
+            
+            
+        }
         
     }
 }

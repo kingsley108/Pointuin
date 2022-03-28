@@ -4,6 +4,8 @@ import UIKit
 import Firebase
 
 var cardSet: [String] = ["0","1","2","3","5","8", "13" , "21" , "34" , "55", "89", "?"]
+var imageCache = [String: UIImage]()
+var otherUserPoints: String?
 
 class EstimateController: UIViewController {
     

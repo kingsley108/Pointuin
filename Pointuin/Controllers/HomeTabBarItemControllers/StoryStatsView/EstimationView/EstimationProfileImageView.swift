@@ -5,7 +5,6 @@ import UIKit
 class EstimationProfileImageView: UIImageView  {
     fileprivate let labelText: String?
     fileprivate let profileImage: UIImage?
-    var imageCache = [String: UIImage]()
     var lastURLUsedToLoadImage: String?
     
     
@@ -45,10 +44,9 @@ class EstimationProfileImageView: UIImageView  {
     
     fileprivate func anchorLabel() {
         
-        let labelHeight = self.pointLabel.intrinsicContentSize.height
-        let labelWidth = self.pointLabel.intrinsicContentSize.width
-        
-        self.pointLabel.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: labelWidth, height: labelHeight))
+        let labelSize = self.pointLabel.getIntrinsicHeight()
+
+        self.pointLabel.anchor(top: nil, leading: nil, trailing: nil, bottom: nil, size: labelSize)
         self.pointLabel.centerTo(view: self)
     }
     
@@ -68,8 +66,6 @@ class EstimationProfileImageView: UIImageView  {
     
     func loadImage(urlString: String) {
         lastURLUsedToLoadImage = urlString
-        
-        print(imageCache.count)
         
         self.image = nil
         
@@ -94,7 +90,7 @@ class EstimationProfileImageView: UIImageView  {
             
             let photoImage = UIImage(data: imageData)
             
-            self.imageCache[url.absoluteString] = photoImage
+            imageCache[url.absoluteString] = photoImage
             
             DispatchQueue.main.async {
                 self.image = photoImage
@@ -103,5 +99,29 @@ class EstimationProfileImageView: UIImageView  {
             }.resume()
     }
     
-    
+    static func loadImage(urlString: String, completion: @escaping (UIImage) -> ()) {
+       
+        if let cachedImage = imageCache[urlString] {
+           completion(cachedImage)
+        }
+        
+        guard let url = URL(string: urlString) else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, err) in
+            if let err = err {
+                print("Failed to fetch post image:", err)
+                return
+            }
+            
+            guard let imageData = data else { return }
+            
+            guard let photoImage = UIImage(data: imageData) else {return}
+            imageCache[url.absoluteString] = photoImage
+            print(" image is \(photoImage)" )
+            completion(photoImage)
+            
+            }.resume()
+        
+        
+    }
 }

@@ -24,6 +24,16 @@ extension UIColor {
     static let alternativeHomeColour = #colorLiteral(red: 0.6085609794, green: 0.8245826364, blue: 1, alpha: 1)
 }
 
+extension UILabel {
+    
+    func getIntrinsicHeight() -> CGSize {
+        
+        let labelHeight = self.intrinsicContentSize.height
+        let labelWidth = self.intrinsicContentSize.width
+        return CGSize(width: labelWidth, height: labelHeight)
+    }
+}
+
 extension UIView {
     func anchor(top: NSLayoutYAxisAnchor?, leading: NSLayoutXAxisAnchor?, trailing: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, size: CGSize = .zero, padding: UIEdgeInsets = .zero) {
         

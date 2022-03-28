@@ -60,10 +60,10 @@ class TeamDetailsCell: UITableViewCell {
     }
     
     fileprivate func addSubviews() {
-        self.addSubview(self.memberInitialsView)
+        self.contentView.addSubview(self.memberInitialsView)
         self.memberInitialsView.addSubview(self.memberInitials)
-        self.addSubview(self.memberUsername)
-        self.addSubview(self.messageIcon)
+        self.contentView.addSubview(self.memberUsername)
+        self.contentView.addSubview(self.messageIcon)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -72,7 +72,10 @@ class TeamDetailsCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.memberInitialsView.anchor(top: topAnchor, leading: self.leadingAnchor, trailing: nil, bottom: nil, size: CGSize(width: 60, height: 60), padding: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 0))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 10, left: 0, bottom: 10, right: 0))
+        contentView.backgroundColor = .alternativeHomeColour
+        
+        self.memberInitialsView.anchor(top: topAnchor, leading: self.leadingAnchor, trailing: nil, bottom: nil, size: CGSize(width: 60, height: 60), padding: UIEdgeInsets(top: 20, left: 10, bottom: 0, right: 0))
         self.memberInitials.anchor(top: nil, leading: nil, trailing: nil, bottom: nil,size: CGSize(width: 200, height: 30))
         self.memberInitials.centerXAnchor.constraint(equalTo: memberInitialsView.centerXAnchor).isActive = true
         self.memberInitials.centerYAnchor.constraint(equalTo: memberInitialsView.centerYAnchor).isActive = true
@@ -87,8 +90,7 @@ class TeamDetailsCell: UITableViewCell {
     
     func setCellAttributes(model: UserProfile) {
         self.memberUsername.text = model.username
-        self.memberInitials.text = "KC"
+        self.memberInitials.text = model.initials
     }
-
 }
 

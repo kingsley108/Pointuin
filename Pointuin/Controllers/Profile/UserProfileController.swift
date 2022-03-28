@@ -10,11 +10,32 @@ import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 import FirebaseAuth
+import JGProgressHUD
 
 class UserProfileController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    fileprivate let userModel: UserProfile
+    fileprivate let userModel: UserProfile?
     fileprivate let dataArray = ["Scrum Master", "Developer", "Non Developer"]
+    fileprivate var user: User? {
+        didSet {
+            guard let user = self.user else {return}
+            self.emailTextField.text = user.email
+            self.usernameTextField.text = user.username
+            self.titleTextField.text = user.title
+            self.phoneTextField.text = user.number
+            guard let index = dataArray.firstIndex(where: {$0 == user.acessLevel}) else {return}
+            self.pickerView.selectRow(index, inComponent: 0, animated: true)
+
+            EstimationProfileImageView.loadImage(urlString: user.profileImageUrl) { image in
+                
+                DispatchQueue.main.async {
+                   let image = image
+                    self.plusPhotoButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
+                }
+                
+            }
+        }
+    }
     
     lazy var pickerView: UIPickerView = {
         let picker: UIPickerView = UIPickerView()
@@ -22,9 +43,22 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
         return picker
     }()
     
+    let hud: JGProgressHUD = {
+        let hud = JGProgressHUD(style: .dark)
+        hud.textLabel.text = "Loading"
+        hud.shadow = JGProgressHUDShadow(color: .black, offset: .zero, radius: 5.0, opacity: 0.1)
+        return hud
+    }()
+    
     let plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
+        button.layer.cornerRadius = 70
+        button.layer.masksToBounds = true
+//        button.tintColor = .clear
+        button.imageView?.contentMode = .scaleAspectFill
+        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = 3
         button.addTarget(self, action: #selector(handlePlusPhoto), for: .touchUpInside)
         return button
     }()
@@ -39,7 +73,7 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
         )
         tf.backgroundColor = UIColor(white: 0, alpha: 0.03)
         tf.borderStyle = .roundedRect
-        tf.text = userModel.email
+        tf.text = userModel?.email
         return tf
     }()
     
@@ -52,7 +86,7 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
             string: "Display Name",
             attributes: [NSAttributedString.Key.font: UIFont.italicSystemFont(ofSize: 14)]
         )
-        tf.text = userModel.username
+        tf.text = userModel?.username
         return tf
     }()
     
@@ -111,7 +145,9 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
         plusPhotoButton.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: 140, height: 140), padding: .init(top: 15, left: 0, bottom: 0, right: 0))
         
         plusPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        self.setupInputFields()
+        self.hud.show(in: self.view)
+        self.setupProfileDetails()
+        self.layoutInputFields()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
@@ -121,11 +157,6 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
         } else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             plusPhotoButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
         }
-        
-        plusPhotoButton.layer.cornerRadius = plusPhotoButton.frame.width/2
-        plusPhotoButton.layer.masksToBounds = true
-        plusPhotoButton.layer.borderColor = UIColor.black.cgColor
-        plusPhotoButton.layer.borderWidth = 3
         
         dismiss(animated: true, completion: nil)
     }
@@ -141,6 +172,33 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
     @objc func handleUpdate() {
         self.saveUserDocuments()
     }
+    
+    fileprivate func setupProfileDetails() {
+        
+        if self.userModel == nil {
+            
+            guard let uId = Auth.auth().currentUser?.uid else {return}
+            
+            Firestore.firestore().getUserUpdates(uid: uId) { (user, err) in
+                
+                if let err = err {
+                    print("Failed to fetch user:", err)
+                    self.hud.dismiss(afterDelay: 0.2, animated: true)
+                    return
+                }
+                
+                self.user = user
+                self.hud.dismiss(afterDelay: 0.5, animated: true)
+            }
+        }
+        
+        self.hud.dismiss(animated: true)
+        
+    }
+    
+    
+    
+    
     
     fileprivate func saveUserDocuments() {
         
@@ -184,7 +242,7 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     
-    fileprivate func setupInputFields() {
+    fileprivate func layoutInputFields() {
         let stackView = UIStackView(arrangedSubviews: [self.emailTextField,
                                                        self.usernameTextField,
                                                        self.titleTextField,

@@ -95,10 +95,10 @@ class EstimationView: UIView {
         self.addSubViews()
         
         let size = (SafeAreaFrame.width / 5) - 20
-        let labelHeight = self.viewHeaderTitle.intrinsicContentSize.height
-        let labelWidth = self.viewHeaderTitle.intrinsicContentSize.width
+        let labelSize = self.viewHeaderTitle.getIntrinsicHeight()
+
         
-        self.viewHeaderTitle.anchor(top: self.topAnchor, leading: self.leadingAnchor, trailing: nil, bottom: nil, size: CGSize(width: labelWidth, height: labelHeight))
+        self.viewHeaderTitle.anchor(top: self.topAnchor, leading: self.leadingAnchor, trailing: nil, bottom: nil, size: labelSize)
         
         self.otherUserEstimationView.anchor(top: self.viewHeaderTitle.bottomAnchor, leading: self.leadingAnchor, trailing: nil, bottom: nil, size: CGSize(width: size, height: size), padding: UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0))
         
@@ -121,14 +121,21 @@ class EstimationView: UIView {
     fileprivate func setupCardStats() {
         
         self.currentUserEstimationView.viewLabel = self.cUserPoint
-        var arr = self.cardPoints.filter { $0 != self.cUserPoint }
-        arr.remove(at: 0)
-        //Removes first element which most times we will never use
 
-        guard let randomElement = arr.randomElement() else {return}
-        self.otherUserEstimationView.viewLabel = randomElement
-        
-        
+        if otherUserPoints == nil {
+            
+            var arr = self.cardPoints.filter { $0 != self.cUserPoint }
+            arr.remove(at: 0)
+            arr.remove(at: arr.count - 1)
+            //Removes first element which most times we will never use
+
+            guard let randomElement = arr.randomElement() else {return}
+            self.otherUserEstimationView.viewLabel = randomElement
+            otherUserPoints = self.otherUserEstimationView.viewLabel
+        } else {
+            
+            self.otherUserEstimationView.viewLabel = otherUserPoints
+        }
     }
     
     
