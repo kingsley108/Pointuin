@@ -23,8 +23,8 @@ class InfoDetailView: UIView {
         let textView = UITextView()
         textView.textColor = .black
        let attributedText = NSMutableAttributedString(string: "You have to ask the team Admin\n", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10, weight: .light)])
-        attributedText.append(NSAttributedString(string: "to create a new session or\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 10, weight: .light)]))
-        attributedText.append(NSAttributedString(string: "join a current session by clicking on the 'Join A Sprint Team' button.\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 10, weight: .light)]))
+        attributedText.append(NSAttributedString(string: "to create a new session and join or\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 10, weight: .light)]))
+        attributedText.append(NSAttributedString(string: "create a session by clicking on the button.\n", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 10, weight: .light)]))
         textView.attributedText = attributedText
         textView.backgroundColor = .systemGray6
         textView.isEditable = false

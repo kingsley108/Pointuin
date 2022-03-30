@@ -94,7 +94,7 @@ class ConfirmEstimationController: UIViewController {
                 return
             }
             
-            firestore.getUserProfileDetails { [unowned self] err,profileImageUrl in
+            firestore.getUserProfileDetails { [unowned self] err, profileImageUrl, sessionID  in
                 
                 if let err = err {
                     print(err)
@@ -102,6 +102,10 @@ class ConfirmEstimationController: UIViewController {
                 }
                 
                 guard let profileImageUrl = profileImageUrl else {return}
+                guard let sessionIdentifier = sessionID else {return}
+                        
+                let activeSession =  ["sessionStatus": "active"]
+                Firestore.db.updateDocument(collection: "sessions", document: "\(sessionIdentifier)", data: activeSession)
                 
                 let controller = StoryStatsViewController(userPoint: self.point, profileUrl: profileImageUrl)
                 self.navigationController?.pushViewController(controller, animated: true)

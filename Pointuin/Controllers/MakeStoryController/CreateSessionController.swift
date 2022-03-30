@@ -87,15 +87,21 @@ class CreateSessionController: UIViewController {
     }
     
     @objc fileprivate func saveSession() {
+        
         let sessionID = self.generateUuidString()
-        let data: [String: Any] = ["team": self.teamField.text ,"passcode": self.passcodeField.text, "sessionStatus": "inactive" ]
-        Firestore.db.saveDocument(collection: "sessions", document: sessionID, data: data)
+        guard let teamTitle = self.teamField.text else {return}
+        guard let passcode = self.passcodeField.text else {return}
+        let data: [String: Any] = ["team": teamTitle ,"passcode": passcode, "sessionStatus": "inactive", "sessionID": "\(sessionID)"]
+        Firestore.db.saveDocument(collection: "sessions", document: "\(sessionID)", data: data)
         
         self.hud.show(in: self.view)
         self.hud.detailTextLabel.text = "Your session number is \(sessionID) please give this to your team."
         self.hud.textLabel.text = "CREATING SESSION"
         
         self.hud.dismiss(afterDelay: 4, animated: true)
+        
+        let controller = AdminControlsViewController(titleText: "\(teamTitle)", sessionID: sessionID)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     func generateUuidString() -> String {
@@ -104,8 +110,5 @@ class CreateSessionController: UIViewController {
         let small = text[text.startIndex..<index]
         return String(small)
     }
-    
-    
-    
     
 }

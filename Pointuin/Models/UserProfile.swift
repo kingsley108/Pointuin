@@ -29,13 +29,15 @@ struct User {
     let sessionStatus: String
     let voted: String
     let pointSelected: String?
+    var adminSessionOn: Bool? = nil
+    let storySummary: String?
     
     init(uid: String, dictionary: [String: Any])
     {
         self.uid = uid
         self.email = dictionary["email"] as? String ?? ""
         self.username = dictionary["username"]  as? String ?? ""
-        self.initials = self.username.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
+        self.initials = self.username.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first)" }
         self.profileImageUrl = dictionary["profileImageUrl"]  as? String ?? ""
         self.team = dictionary["team"] as? String ?? "My Team"
         self.title = dictionary["title"] as? String ?? ""
@@ -45,6 +47,10 @@ struct User {
         self.sessionStatus = dictionary["sessionStatus"] as? String ?? "noSession"
         self.voted = dictionary["voted"] as? String ?? "false"
         self.pointSelected = dictionary["pointSelected"] as? String
+        if let sessionOn = dictionary["sessionOn"] as? String {
+            self.adminSessionOn = sessionOn.bool
+        }
+        self.storySummary = dictionary["storySummary"] as? String
     }
 }
 

@@ -55,10 +55,7 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
         button.setImage(#imageLiteral(resourceName: "plus_photo").withRenderingMode(.alwaysOriginal), for: .normal)
         button.layer.cornerRadius = 70
         button.layer.masksToBounds = true
-//        button.tintColor = .clear
         button.imageView?.contentMode = .scaleAspectFill
-        button.layer.borderColor = UIColor.black.cgColor
-        button.layer.borderWidth = 3
         button.addTarget(self, action: #selector(handlePlusPhoto), for: .touchUpInside)
         return button
     }()
@@ -126,7 +123,7 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
         return button
     }()
     
-    init(userModel: UserProfile) {
+    init(userModel: UserProfile?) {
         self.userModel = userModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -146,8 +143,11 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
         
         plusPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         self.hud.show(in: self.view)
-        self.setupProfileDetails()
         self.layoutInputFields()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.setupProfileDetails()
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any])
@@ -158,6 +158,8 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
             plusPhotoButton.setImage(originalImage.withRenderingMode(.alwaysOriginal), for: .normal)
         }
         
+        self.plusPhotoButton.layer.borderColor = UIColor.black.cgColor
+        self.plusPhotoButton.layer.borderWidth = 3
         dismiss(animated: true, completion: nil)
     }
     
@@ -171,6 +173,7 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
     
     @objc func handleUpdate() {
         self.saveUserDocuments()
+        
     }
     
     fileprivate func setupProfileDetails() {
@@ -202,6 +205,11 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
     
     fileprivate func saveUserDocuments() {
         
+        self.hud.textLabel.text = "Creating New User"
+        self.hud.detailTextLabel.text = "Please hold on while we get your user set up"
+        self.hud.show(in: self.view)
+        
+        
         guard let image = self.plusPhotoButton.imageView?.image else { return }
         guard let userId = Auth.auth().currentUser?.uid else {return}
         guard let username = usernameTextField.text else {return}
@@ -226,11 +234,12 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
                 guard let profileImageUrl = downloadURL?.absoluteString else { return }
                 
                 let document: [String: Any] = ["username": username, "email": email, "number": phoneTextField.text ?? "","title": self.titleTextField.text ?? "","acess": acessLevel  ,"uid": userId, "profileImageUrl": profileImageUrl]
-                db.collection("users").document(userId).setData(document) { err in
+                db.collection("users").document("\(userId)").setData(document) { err in
                     if err != nil {
                         return
                     }
                     
+                    self.hud.dismiss(afterDelay: 1)
                     guard let mainTabBarController = UIApplication.shared.keyWindow?.rootViewController as? MainTabBarController else { return }
                     mainTabBarController.setUpVc()
                     self.dismiss(animated: true, completion: nil)

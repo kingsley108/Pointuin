@@ -149,9 +149,20 @@ class HomeController: UIViewController {
     
     @objc private func joinSprint() {
         
+    
         if self.memberType == .admin {
-            let controller = CreateSessionController()
-            navigationController?.pushViewController(controller, animated: true)
+            if let isSessionOn = self.user?.adminSessionOn, isSessionOn {
+                guard let team = self.user?.team else {return}
+                guard let sessionID = self.user?.sessionID else {return}
+                
+                let controller = AdminControlsViewController(titleText: team, sessionID: sessionID, previousStory: self.user?.storySummary)
+                navigationController?.pushViewController(controller, animated: true)
+                
+            } else {
+                let controller = CreateSessionController()
+                navigationController?.pushViewController(controller, animated: true)
+            }
+            
         } else {
             let controller = JoinSessionController()
             navigationController?.pushViewController(controller, animated: true)
@@ -160,20 +171,19 @@ class HomeController: UIViewController {
     }
     
     @objc private func joinSession() {
-        
-        let userSelectedVote = self.user?.pointSelected != nil
-        if self.hasEstimated && userSelectedVote {
-            guard let userSelectedVote = self.user?.pointSelected else {return}
-            guard let user = self.user else {return}
-            let controller = StoryStatsViewController(userPoint: userSelectedVote, profileUrl: user.profileImageUrl)
-            self.navigationController?.pushViewController(controller, animated: true)
-            return
-        } else {
-            let estimateController = EstimateController()
-            navigationController?.pushViewController(estimateController, animated: true)
-        }
-        
-       
+            
+            let userSelectedVote = self.user?.pointSelected != nil
+            
+            if self.hasEstimated && userSelectedVote {
+                guard let userSelectedVote = self.user?.pointSelected else {return}
+                guard let user = self.user else {return}
+                let controller = StoryStatsViewController(userPoint: userSelectedVote, profileUrl: user.profileImageUrl)
+                self.navigationController?.pushViewController(controller, animated: true)
+                return
+            } else {
+                let estimateController = EstimateController()
+                self.navigationController?.pushViewController(estimateController, animated: true)
+            }
     }
     
     @objc private func teamDetailsView() {

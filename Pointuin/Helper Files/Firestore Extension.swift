@@ -15,15 +15,14 @@ extension Firestore {
     static let db = Firestore.firestore()
     
     func getUserUpdates(uid: String,completion: @escaping (User?, Error?) -> ()) {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        let db = Firestore.firestore()
-        db.collection("users").document(uid)
+        
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        Firestore.db.collection("users").document(uid)
             .addSnapshotListener { documentSnapshot, error in
                 guard let document = documentSnapshot else {
                     print("Error fetching document: \(error!)")
                     return
                 }
-                
                 
                 guard let dictionary = document.data() else {
                     print("Document data was empty.")
@@ -39,15 +38,14 @@ extension Firestore {
     
     
     func checkSessionExists(displayName: String, sessionID: String, passCode: String, completion: @escaping (Error?) -> ()) {
-        let db = Firestore.firestore()
         
-        db.collection("sessions").document(sessionID).getDocument { (snapshot, err) in
+        Firestore.db.collection("sessions").document("\(sessionID)").getDocument { (snapshot, err) in
             if let err = err {
                 print("Failed to fetch card user:", err)
                 completion(err)
                 return
             }
-            
+            print(snapshot?.data())
             guard let document = snapshot?.data() else {return}
             let isSession = document["passcode"] as? String ?? "" == passCode
             
@@ -66,7 +64,7 @@ extension Firestore {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
         let db = Firestore.firestore()
-        let sessionsRef = db.collection("sessions").document(sessionID)
+        let sessionsRef = db.collection("sessions").document("\(sessionID)")
         
         sessionsRef.updateData([
             "displayNames": FieldValue.arrayUnion([username]),
@@ -76,7 +74,7 @@ extension Firestore {
                 completion(err)
                 return
             }
-            self.addSessionToUserFile(uid: uid, sessionID: sessionID, completion: completion)
+            self.addSessionToUserFile(uid: uid, sessionID: "\(sessionID)", completion: completion)
         }
         
     }
@@ -106,7 +104,6 @@ extension Firestore {
     
     func getSessionStory(uid: String,completion: @escaping (String?, Error?) -> ()) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
-        let db = Firestore.firestore()
         self.getUserUpdates(uid: uid) { user, err in
             
             if let err = err {
@@ -114,7 +111,7 @@ extension Firestore {
             }
             
             guard let sessionID = user?.sessionID else {return}
-            db.collection("sessions").document(sessionID).getDocument { (snapshot, err) in
+            Firestore.db.collection("sessions").document(sessionID).getDocument { (snapshot, err) in
                 
                 if let err = err {
                     print("Failed to fetch session:", err)
@@ -148,20 +145,21 @@ extension Firestore {
         }
     }
     
-    func getUserProfileDetails(completion: @escaping (Error?, String?) -> ()) {
+    func getUserProfileDetails(completion: @escaping (Error?, String?, String?) -> ()) {
         
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        Firestore.db.collection("user").document(uid).getDocument { (snapshot, err) in
+        Firestore.db.collection("users").document(uid).getDocument { (snapshot, err) in
             if let err = err {
                 print("Failed to fetch card user:", err)
-                completion(err,nil)
+                completion(err,nil, nil)
                 return
             }
             
             guard let document = snapshot?.data() else {return}
             let imageUrl = document["profileImageUrl"] as? String ?? ""
-            completion(nil, imageUrl)
+            let sessionID = document["sessionID"] as? String ?? nil
+            completion(nil, imageUrl,sessionID )
         }
     }
     
@@ -171,9 +169,92 @@ extension Firestore {
             if err != nil {
                 return
             }
+        }
+    }
+    
+    
+    func updateDocument(collection: String,document: String, data: [String: Any]) {
+       let query = Firestore.db.collection(collection).document("\(document)")
+        
+        query.updateData(data) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+                return
+            }
+        }
+    }
+    
+    
+    func getField(collection: String, document: String,field: String,completion: @escaping (Any?, Error?) -> ()) {
+        
+        Firestore.db.collection("\(collection)").document("\(document)").getDocument { (snapshot, err) in
             
+            if let err = err {
+                print("Failed to fetch information:", err)
+                completion(nil, err)
+                return
+            }
+            
+            guard let document = snapshot?.data() else {return}
+            guard let story = document[field] as? String else {return}
+            
+            completion(story, nil)
+        }
+    }
+    
+    
+    func updateisVotedForUsers(sesionID: String,completion: @escaping (Error?) -> ()) {
+        
+        self.getField(collection: "sessions", document: "\(sesionID)", field: "userVoted") { votedStatus, err in
+            
+            var isVoted = false
+            let dictionary = ["voted": isVoted]
+            var allUid: [String]? = nil
+            
+            guard let uid = Auth.auth().currentUser?.uid else {return}
+            if let err = err {
+                print("Failed to get voting status :", err)
+                self.updateUserData(uid: uid, dictionary: dictionary, completion: completion)
+                completion(err)
+                return
+            }
+        
+            guard let status = votedStatus as? String else {
+                print("Failed to get voting status, the bool value failed :", err)
+                self.updateUserData(uid: uid, dictionary: dictionary, completion: completion)
+                completion(err)
+                return
+            }
+            isVoted = status.bool
+            
+            //This gets all the user uid and updates it
+            self.getField(collection: "sessions", document: "\(sesionID)", field: "userIds") { uid, err in
+                
+                if let err = err {
+                    print("Failed to get all user IDs, due to err :", err)
+                    completion(err)
+                    return
+                }
+                
+                guard let uids = uid as? [String] else {
+                    print("Failed to get all userIDS, could not cast :", err)
+                    completion(err)
+                    return
+                }
+                allUid = uids
+            }
+            
+            if allUid != nil {
+                
+                allUid?.forEach({ uid in
+                    self.updateUserData(uid: uid, dictionary: ["voted": isVoted], completion: completion)
+                })
+            }
             
         }
         
     }
+    
+    
+    
 }

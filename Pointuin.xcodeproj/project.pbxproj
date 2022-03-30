@@ -45,6 +45,7 @@
 		1F98AE0A27ED1A9500773723 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98AE0927ED1A9500773723 /* Enums.swift */; };
 		1F98AE0C27F1CC1800773723 /* LeaderBoardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98AE0B27F1CC1800773723 /* LeaderBoardController.swift */; };
 		1F98AE0F27F1D76E00773723 /* LeaderboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98AE0E27F1D76E00773723 /* LeaderboardCell.swift */; };
+		1F98AE1227F20A2500773723 /* StoryEstimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F98AE1127F20A2500773723 /* StoryEstimationView.swift */; };
 		1FB23BF727E4B7D200A42929 /* EstimateController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BF627E4B7D200A42929 /* EstimateController.swift */; };
 		1FB23BF927E4B83800A42929 /* EstimatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BF827E4B83800A42929 /* EstimatingCell.swift */; };
 		1FB23BFC27E8501F00A42929 /* JoinSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */; };
@@ -114,6 +115,7 @@
 		1F98AE0927ED1A9500773723 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		1F98AE0B27F1CC1800773723 /* LeaderBoardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardController.swift; sourceTree = "<group>"; };
 		1F98AE0E27F1D76E00773723 /* LeaderboardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderboardCell.swift; sourceTree = "<group>"; };
+		1F98AE1127F20A2500773723 /* StoryEstimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryEstimationView.swift; sourceTree = "<group>"; };
 		1FB23BF627E4B7D200A42929 /* EstimateController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimateController.swift; sourceTree = "<group>"; };
 		1FB23BF827E4B83800A42929 /* EstimatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EstimatingCell.swift; sourceTree = "<group>"; };
 		1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionController.swift; sourceTree = "<group>"; };
@@ -190,8 +192,6 @@
 		1F412D1427E9FEC500C7EAA7 /* HomeTabBarItemControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1F98AE0727ECDDE700773723 /* AdminControlsViewController.swift */,
-				1F412D2927EC455800C7EAA7 /* CreateSessionController.swift */,
 				1F412D1E27EB63E700C7EAA7 /* StoryStatsView */,
 				1FB23BFB27E8501F00A42929 /* JoinSessionController.swift */,
 				1F412D1827EA2A8500C7EAA7 /* ConfirmEstimationController.swift */,
@@ -367,6 +367,9 @@
 		1F98AE1027F1FBE700773723 /* MakeStoryController */ = {
 			isa = PBXGroup;
 			children = (
+				1F412D2927EC455800C7EAA7 /* CreateSessionController.swift */,
+				1F98AE0727ECDDE700773723 /* AdminControlsViewController.swift */,
+				1F98AE1127F20A2500773723 /* StoryEstimationView.swift */,
 			);
 			path = MakeStoryController;
 			sourceTree = "<group>";
@@ -659,6 +662,7 @@
 				1F82D49C27C26D5300C680A7 /* SceneDelegate.swift in Sources */,
 				1FFFC2FC27E902AF008FA073 /* UserDetailsField.swift in Sources */,
 				1F412D2227EB80A200C7EAA7 /* EstimationProfileImageView.swift in Sources */,
+				1F98AE1227F20A2500773723 /* StoryEstimationView.swift in Sources */,
 				1F82068227E457F90064E8BB /* TeamDetailsCell.swift in Sources */,
 				1FB23BF727E4B7D200A42929 /* EstimateController.swift in Sources */,
 				1F412D1627EA24DC00C7EAA7 /* PointerView.swift in Sources */,

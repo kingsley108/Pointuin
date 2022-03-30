@@ -18,7 +18,7 @@ class JoinSessionController: UIViewController {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.distribution = .fillEqually
-        stackView.spacing = 4
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -118,24 +118,30 @@ class JoinSessionController: UIViewController {
         guard let sessionID = sessionField.text else {return}
         guard let passCode = passcodeField.text else {return}
         
-        Firestore.firestore().checkSessionExists(displayName: displayname, sessionID: sessionID, passCode: passCode, completion: { [weak self] err in
+        self.hud.textLabel.text = "JOINING SESSION NOW 🎬💤"
+        self.hud.detailTextLabel.text = "Please hold on While we join you in this session......"
+        self.hud.show(in: self.view)
+        
+        let sessionIdentifier = String(sessionID.filter { !" \n\t\r".contains($0) })
+        
+        Firestore.db.checkSessionExists(displayName: displayname, sessionID: sessionIdentifier, passCode: passCode, completion: { [weak self] err in
             
             if let err = err {
                 self?.showHUDWithError(error: err)
                 return
             }
             
+            self?.hud.dismiss()
             let controller = EstimateController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
     }
     
     fileprivate func showHUDWithError(error: Error) {
-        let hud = JGProgressHUD(style: .dark)
-        hud.textLabel.text = "Session Not Joined, Try Again"
-        hud.detailTextLabel.text = error.localizedDescription
-        hud.show(in: self.view)
-        hud.dismiss(afterDelay: 4)
+        self.hud.textLabel.text = "Session Not Joined, Try Again"
+        self.hud.detailTextLabel.text = error.localizedDescription
+        self.hud.show(in: self.view)
+        self.hud.dismiss(afterDelay: 4)
     }
     
     func setupStackview() {

@@ -26,7 +26,8 @@ class EstimationProfileImageView: UIImageView  {
     fileprivate lazy var pointLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = .white
-        lbl.font = UIFont.systemFont(ofSize: 20)
+        lbl.font = UIFont.systemFont(ofSize: 16)
+        lbl.textAlignment = .left
         return lbl
     }()
     

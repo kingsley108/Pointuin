@@ -37,8 +37,6 @@ enum SessionOptions {
             self = SessionOptions.indev
         }
     }
-    
-    static let currentUser = UserProfile(username: "Temp", email: "Temp")
 }
 
 
