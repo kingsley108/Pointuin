@@ -61,6 +61,7 @@ class StoryStatsViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.hidesBackButton = true
+        navigationItem.title = "Story Stats"
         self.circularProgress.progressColor = UIColor.homeColour
         self.circularProgress.trackColor = UIColor.alternativeHomeColour
         self.circularProgress.tag = 101

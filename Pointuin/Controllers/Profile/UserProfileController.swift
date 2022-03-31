@@ -138,10 +138,11 @@ class UserProfileController: UIViewController, UIImagePickerControllerDelegate, 
         let textAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         navigationController?.navigationBar.titleTextAttributes = textAttributes
         
-        view.addSubview(plusPhotoButton)
-        plusPhotoButton.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: 140, height: 140), padding: .init(top: 15, left: 0, bottom: 0, right: 0))
+        self.view.addSubview(plusPhotoButton)
+        navigationItem.title = "Profile"
+        self.plusPhotoButton.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: nil, trailing: nil, bottom: nil, size: CGSize(width: 140, height: 140), padding: .init(top: 15, left: 0, bottom: 0, right: 0))
         
-        plusPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        self.plusPhotoButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         self.hud.show(in: self.view)
         self.layoutInputFields()
     }

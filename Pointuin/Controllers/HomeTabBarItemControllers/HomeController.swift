@@ -65,19 +65,17 @@ class HomeController: UIViewController {
         
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        self.hud.show(in: self.view)
-        self.fetchCurrentUser()
-        self.setUpLayout()
-        self.setupLogOutButton()
-        self.setUpViewCase()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         self.setNavigatonItemAttributes()
-        
+        self.hud.show(in: self.view)
+        self.fetchCurrentUser()
+        self.setUpLayout()
+        self.setupLogOutButton()
+        self.setUpViewCase()
     }
     
     fileprivate func setNavigatonItemAttributes() {
@@ -92,9 +90,7 @@ class HomeController: UIViewController {
         didSet {
             
             guard let user = user else {return}
-            let enrolled =  user.team == "My Team"
-            print(enrolled)
-            self.navigationItem.title =  enrolled ? user.team : "\(user.team) Sprint Plan"
+            self.navigationItem.title = "\(user.team) Sprint Plan"
             
             self.memberType = MemberType(rawValue: user.acessLevel) ?? .none
             self.inSessionState = SessionOptions(state: SessionState(sessionSate: user.sessionStatus))
@@ -125,6 +121,9 @@ class HomeController: UIViewController {
             }
             
             self.user = user
+            if let isSessionOn = self.user?.adminSessionOn, isSessionOn, self.memberType == .admin {
+                self.joinSprintBtn.setTitle("Continue Sprint Planning", for: .normal)
+            }
             self.hud.dismiss(afterDelay: 0.5, animated: true)
         }
     }

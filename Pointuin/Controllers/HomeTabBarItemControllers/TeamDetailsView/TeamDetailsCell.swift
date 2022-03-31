@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol ChatControllerRoute{
+    
+    func chatControllerSegue(with username: String)
+}
+
 class TeamDetailsCell: UITableViewCell {
+    
+    var delegate: ChatControllerRoute?
     
     lazy var memberInitialsView: UIImageView = {
         let imageView = UIImageView()
@@ -21,13 +28,14 @@ class TeamDetailsCell: UITableViewCell {
     }()
     
     
-    lazy var messageIcon: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage(systemName: "envelope.fill")?.withTintColor(.blue)
-        imageView.image?.withTintColor(.white)
-        imageView.clipsToBounds = true
-        return imageView
+    lazy var messageIcon: UIButton = {
+        let btn = UIButton()
+        btn.imageView?.contentMode = .scaleAspectFill
+        btn.setImage(UIImage(systemName: "envelope.fill")?.withTintColor(.blue), for: .normal)
+        btn.imageView?.image?.withTintColor(.white)
+        btn.imageView?.clipsToBounds = true
+        btn.addTarget(self, action: #selector(routeToMessageController), for: .touchUpInside)
+        return btn
     }()
     
     
@@ -91,6 +99,12 @@ class TeamDetailsCell: UITableViewCell {
     func setCellAttributes(model: UserProfile) {
         self.memberUsername.text = model.username
         self.memberInitials.text = model.initials
+    }
+    
+    
+    @objc func routeToMessageController() {
+        guard let username = self.memberUsername.text else {return}
+        delegate?.chatControllerSegue(with: username)
     }
 }
 

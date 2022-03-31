@@ -8,6 +8,8 @@ class InfoDetailView: UIView {
         if #available(iOS 15.0, *) {
             let config = UIImage.SymbolConfiguration(paletteColors: [.white, .orange])
             imgView.image = UIImage(systemName: "info.circle.fill", withConfiguration: config)
+        } else {
+            imgView.image = UIImage(systemName: "info.circle.fill")?.withTintColor(.orange)
         }
         return imgView
     }()
@@ -43,9 +45,8 @@ class InfoDetailView: UIView {
     }
     
     fileprivate func addSubviews() {
-        if #available(iOS 15.0, *) {
-            self.addSubview(self.informationIcon)
-        }
+        
+        self.addSubview(self.informationIcon)
         self.addSubview(self.title)
         self.addSubview(self.infoText)
     }

@@ -2,7 +2,8 @@
 import UIKit
 import Foundation
 
-class TeamDetailsController: UIViewController {
+class TeamDetailsController: UIViewController, ChatControllerRoute {
+    
     let cellReuseIdentifier = "teamDetailsCell"
     var model = [UserProfile]()
     
@@ -37,8 +38,7 @@ class TeamDetailsController: UIViewController {
     
     fileprivate func fillUpModel() {
         
-        let model = [UserProfile(username: "Kingsley Charles", email: "kingsley108@yahoo.co.uk"),
-                     UserProfile(username: "Charlie Smith", email: "Csmith@yahoo.co.uk"),
+        let model = [UserProfile(username: "Charlie Smith", email: "Csmith@yahoo.co.uk"),
                      UserProfile(username: "James Jones", email: "Jjones@yahoo.co.uk"),
                      UserProfile(username: "Richard Mill", email: "Rmill@yahoo.co.uk"),
                      UserProfile(username: "Fred Ani", email: "Fani@yahoo.co.uk"),
@@ -61,6 +61,8 @@ extension TeamDetailsController: UITableViewDelegate, UITableViewDataSource {
         let model = model[indexPath.row]
         let cell = self.teamTableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! TeamDetailsCell
         cell.setCellAttributes(model: model)
+        cell.delegate = self
+        cell.selectionStyle = .none
         cell.backgroundColor = .white
         return cell
     }
@@ -77,7 +79,13 @@ extension TeamDetailsController: UITableViewDelegate, UITableViewDataSource {
         return UIView()
     }
     
-    
+    func chatControllerSegue(with username: String) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "chatStoryBoard") as! ChatViewController
+        vc.sendeeName = username
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
 }
 

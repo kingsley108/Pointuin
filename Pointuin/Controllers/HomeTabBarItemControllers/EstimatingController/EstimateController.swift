@@ -37,6 +37,7 @@ class EstimateController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.hidesBackButton = true
         view.backgroundColor = .white
+        self.estimateCollectionView.backgroundColor = .white
         self.title = "Planning 5"
         navigationController?.navigationBar.tintColor = .white
         self.fetchCurrentStory()

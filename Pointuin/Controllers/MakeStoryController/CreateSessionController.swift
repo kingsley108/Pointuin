@@ -3,6 +3,7 @@ import Foundation
 import UIKit
 import JGProgressHUD
 import FirebaseFirestore
+import FirebaseAuth
 
 class CreateSessionController: UIViewController {
     
@@ -89,10 +90,13 @@ class CreateSessionController: UIViewController {
     @objc fileprivate func saveSession() {
         
         let sessionID = self.generateUuidString()
+        guard let uid = Auth.auth().currentUser?.uid else {return}
         guard let teamTitle = self.teamField.text else {return}
         guard let passcode = self.passcodeField.text else {return}
         let data: [String: Any] = ["team": teamTitle ,"passcode": passcode, "sessionStatus": "inactive", "sessionID": "\(sessionID)"]
+        let userSessionData = ["sessionID": "\(sessionID)"]
         Firestore.db.saveDocument(collection: "sessions", document: "\(sessionID)", data: data)
+        Firestore.db.updateDocument(collection: "users", document: "\(uid)", data: userSessionData)
         
         self.hud.show(in: self.view)
         self.hud.detailTextLabel.text = "Your session number is \(sessionID) please give this to your team."

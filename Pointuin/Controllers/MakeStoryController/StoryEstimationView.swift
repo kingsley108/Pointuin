@@ -33,13 +33,31 @@ class StoryEstimationView: UIView {
             let didEnable = enableStopControls
             let controlsAlpha: Double = didEnable ? 0.4 : 0
             
-            self.startEstimatingButton.isEnabled = !didEnable
-            self.startEstimatingButton.alpha = 1 - controlsAlpha
             self.restartSprintButton.isEnabled = didEnable
             self.restartSprintButton.alpha = 0.6 + controlsAlpha
             self.endPlanningButton.isEnabled = didEnable
             self.endPlanningButton.alpha = 0.6 + controlsAlpha
             self.storyTextBox.isUserInteractionEnabled = !didEnable
+        }
+    }
+    
+    var userCanEstimate: Bool = false {
+        
+        didSet {
+            let didEnable = userCanEstimate
+            let controlsAlpha: Double = didEnable ? 0 : 0.4
+            self.startEstimatingButton.isEnabled = didEnable
+            self.startEstimatingButton.alpha = 1 - controlsAlpha
+        }
+    }
+    
+    var enableAddStory: Bool = true {
+        
+        didSet {
+            let didEnable = enableAddStory
+            let controlsAlpha: Double = didEnable ? 0 : 0.4
+            self.plusButton.isEnabled = didEnable
+            self.plusButton.alpha = 1 - controlsAlpha
         }
     }
     
@@ -54,11 +72,10 @@ class StoryEstimationView: UIView {
     }
     
     
-    lazy var storyTextBox: CustomTextField = {
-        let txtField = CustomTextField(placeholder: "Write a story here")
-        txtField.contentVerticalAlignment = .top
-        txtField.backgroundColor = .white
-        return txtField
+    lazy var storyTextBox: PlaceHolderTextView = {
+        let txtView = PlaceHolderTextView()
+//        txtView.contentVerticalAlignment = .top
+        return txtView
     }()
     
     lazy var plusButton: CustomButton = {

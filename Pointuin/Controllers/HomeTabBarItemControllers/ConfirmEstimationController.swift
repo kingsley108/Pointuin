@@ -85,7 +85,7 @@ class ConfirmEstimationController: UIViewController {
     @objc fileprivate func confirmEstimation() {
         guard let uid = Auth.auth().currentUser?.uid else {return}
         let firestore = Firestore.firestore()
-        let data = ["voted": "true", "pointSelected": self.point]
+        let data = ["hasVoted": "true", "pointSelected": self.point, "sessionStatus": "active"]
         
         firestore.updateUserData(uid: uid, dictionary: data) { err in
             

@@ -92,7 +92,7 @@ extension Firestore {
             
             guard let document = snapshot?.data() else {return}
             let status = document["sessionStatus"] as? String ?? "inactive"
-            let team = document["team"] as? String ?? "My Team"
+            let team = document["team"] as? String ?? ""
             let dict = ["sessionID": sessionID, "sessionStatus": status, "team": team]
             self.updateUserData(uid: uid, dictionary: dict, completion: completion)
             
@@ -174,12 +174,24 @@ extension Firestore {
     
     
     func updateDocument(collection: String,document: String, data: [String: Any]) {
-       let query = Firestore.db.collection(collection).document("\(document)")
+        let query = Firestore.db.collection(collection).document("\(document)")
         
         query.updateData(data) { err in
             if let err = err {
                 print("Error updating document: \(err)")
                 return
+            }
+        }
+    }
+    
+    func deleteDocument(collection: String,document: String, data: [String: Any]) {
+        let query = Firestore.db.collection(collection).document("\(document)")
+        
+        query.delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
             }
         }
     }
@@ -203,13 +215,12 @@ extension Firestore {
     }
     
     
-    func updateisVotedForUsers(sesionID: String,completion: @escaping (Error?) -> ()) {
+    func updateSessionStatusForUsers(documentID: String, updatedFieldName: String, completion: @escaping (Error?) -> ()) {
         
-        self.getField(collection: "sessions", document: "\(sesionID)", field: "userVoted") { votedStatus, err in
+        self.getField(collection: "sessions", document: "\(documentID)", field: "\(updatedFieldName)") { fieldStatus, err in
             
-            var isVoted = false
-            let dictionary = ["voted": isVoted]
-            var allUid: [String]? = nil
+            let defaultStatus = ""
+            let dictionary = ["\(updatedFieldName)": defaultStatus]
             
             guard let uid = Auth.auth().currentUser?.uid else {return}
             if let err = err {
@@ -218,43 +229,44 @@ extension Firestore {
                 completion(err)
                 return
             }
-        
-            guard let status = votedStatus as? String else {
+            
+            guard let status = fieldStatus as? String else {
                 print("Failed to get voting status, the bool value failed :", err)
                 self.updateUserData(uid: uid, dictionary: dictionary, completion: completion)
                 completion(err)
                 return
             }
-            isVoted = status.bool
             
             //This gets all the user uid and updates it
-            self.getField(collection: "sessions", document: "\(sesionID)", field: "userIds") { uid, err in
-                
-                if let err = err {
-                    print("Failed to get all user IDs, due to err :", err)
-                    completion(err)
-                    return
-                }
-                
-                guard let uids = uid as? [String] else {
-                    print("Failed to get all userIDS, could not cast :", err)
-                    completion(err)
-                    return
-                }
-                allUid = uids
-            }
-            
-            if allUid != nil {
-                
-                allUid?.forEach({ uid in
-                    self.updateUserData(uid: uid, dictionary: ["voted": isVoted], completion: completion)
-                })
-            }
+            self.readUpdateFirestoreArray(documentID: "\(documentID)", updatedField: "\(updatedFieldName)", fieldStatus: status, completion: completion)
             
         }
-        
     }
     
-    
+    func readUpdateFirestoreArray(documentID: String, updatedField: String , fieldStatus: String ,completion: @escaping (Error?) -> ()) {
+        
+        Firestore.db.collection("sessions").document("\(documentID)").getDocument { (document, error) in
+            
+            if let err = error {
+                print("Failed to get all user IDs, due to err :", err)
+                completion(nil)
+                return
+            }
+            guard let document = document else {return}
+            if document.exists {
+                
+                //get all document data
+                guard let documentData = document.data() else {return}
+                
+                //get value-array for key "userIds"
+                guard let element = documentData["userIds"] as? [String] else {return} //print ->
+                
+                element.forEach({ uid in
+                    self.updateUserData(uid: uid, dictionary: ["\(updatedField)": fieldStatus], completion: completion)
+                })
+            }
+        }
+    }
     
 }
+

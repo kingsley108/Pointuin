@@ -39,13 +39,13 @@ struct User {
         self.username = dictionary["username"]  as? String ?? ""
         self.initials = self.username.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first)" }
         self.profileImageUrl = dictionary["profileImageUrl"]  as? String ?? ""
-        self.team = dictionary["team"] as? String ?? "My Team"
+        self.team = dictionary["team"] as? String ?? ""
         self.title = dictionary["title"] as? String ?? ""
         self.acessLevel = dictionary["acess"] as? String ?? ""
         self.number = dictionary["number"] as? String ?? ""
         self.sessionID = dictionary["sessionID"] as? String ?? ""
         self.sessionStatus = dictionary["sessionStatus"] as? String ?? "noSession"
-        self.voted = dictionary["voted"] as? String ?? "false"
+        self.voted = dictionary["hasVoted"] as? String ?? "false"
         self.pointSelected = dictionary["pointSelected"] as? String
         if let sessionOn = dictionary["sessionOn"] as? String {
             self.adminSessionOn = sessionOn.bool
