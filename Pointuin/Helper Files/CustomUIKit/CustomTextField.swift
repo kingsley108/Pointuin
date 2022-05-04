@@ -14,7 +14,7 @@ class CustomTextField: UITextField {
         self.layer.borderWidth = 1.0
         self.layer.cornerRadius = 4
         self.font = UIFont.systemFont(ofSize: 14)
-        self.isUserInteractionEnabled = false
+        self.isUserInteractionEnabled = true
     }
     
     

@@ -19,13 +19,14 @@ protocol StoryEstimationDelegate {
 class StoryEstimationView: UIView {
     
     var delegate: StoryEstimationDelegate?
+    fileprivate var sessionID: String
     
     init(frame: CGRect, sessionID: String) {
+        self.sessionID = sessionID
         super.init(frame: .zero)
         self.backgroundColor = .systemGray5
         self.setupViews()
     }
-    
     var enableStopControls: Bool = false {
         
         didSet {
@@ -62,6 +63,7 @@ class StoryEstimationView: UIView {
     }
     
     required init?(coder: NSCoder, sessionID: String) {
+        self.sessionID = sessionID
         super.init(coder: coder)
         self.setupViews()
         fatalError("init(coder:) has not been implemented")
@@ -142,7 +144,7 @@ class StoryEstimationView: UIView {
         
         let label = UILabel()
         label.textColor = UIColor.homeColour
-        label.text = "❓Confidence level: idle"
+        label.text = "❓SessionID: \(self.sessionID) \n Passcode: 1234"
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()

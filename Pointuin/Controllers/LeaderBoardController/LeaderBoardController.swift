@@ -13,6 +13,26 @@ class LeaderBoardController: UIViewController {
         return tableView
     }()
     
+    lazy var dateString: String = {
+        let currentDateTime = Date()
+        let formatter = DateFormatter()
+        formatter.timeStyle = .none
+        formatter.dateStyle = .long
+        return formatter.string(from: currentDateTime)
+    }()
+    
+    
+    lazy var leaderBoardTitle: UILabel = {
+        let label = UILabel()
+        label.text = "Planning (\(dateString))"
+        label.textColor = .homeColour
+        label.font = UIFont.systemFont(ofSize: 34, weight: .regular)
+        label.lineBreakMode = .byWordWrapping
+        label.numberOfLines = 0
+
+        return label
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fillUpModel()
@@ -30,15 +50,23 @@ class LeaderBoardController: UIViewController {
     }
     
     fileprivate func setupTableView() {
+        
         view.addSubview(self.leaderBoardTableView)
-        self.leaderBoardTableView.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, bottom: self.view.safeAreaLayoutGuide.bottomAnchor)
+        view.addSubview(self.leaderBoardTitle)
+        
+        let labelSize = self.leaderBoardTitle.getIntrinsicHeight()
+        
+        self.leaderBoardTitle.anchor(top: self.view.safeAreaLayoutGuide.topAnchor, leading: self.view.leadingAnchor, trailing: self.view.trailingAnchor, bottom: nil, size: labelSize ,padding: UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10))
+        
+        self.leaderBoardTableView.anchor(top: self.leaderBoardTitle.topAnchor, leading: leaderBoardTitle.leadingAnchor, trailing: leaderBoardTitle.trailingAnchor, bottom: self.view.bottomAnchor, padding: UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0))
+        
         self.leaderBoardTableView.register(LeaderboardCell.self, forCellReuseIdentifier: cellReuseIdentifier)
     }
     
     fileprivate func fillUpModel() {
         
         
-        let userone = UserScore(username: "Kingsley Charles", points: 5)
+        let userone = UserScore(username: "Kingsley Charles", points: 0)
         let usertwo = UserScore(username: "Charlie Smith", points: 3)
         let userthree = UserScore(username: "James Jones", points: 2)
         let userfour = UserScore(username: "Richard Mill", points: 2)

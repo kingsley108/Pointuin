@@ -9,7 +9,9 @@ import FirebaseAuth
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
-    var index : Int?
+    var index = 0
+    var titles = ["Home", "Leaderboard", "Profile"]
+    
     
     override func viewDidLoad() {
         self.setUpVc()
@@ -48,6 +50,8 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         for item in self.tabBar.items! as [UITabBarItem]
         {
             item.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0)
+            item.title = titles[index]
+            index += 1
         }
         
     }
